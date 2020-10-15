@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace RpgGenerator.Annotations
+namespace RpgGenerator.Basic
 {
 	[AttributeUsage(AttributeTargets.Parameter)]
 	public class PhaseContextAttribute : Attribute

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
-using RpgGenerator.Generation.Analyzer;
-using RpgGenerator.Syntax;
-using RpgGenerator.Utilities;
+using RpgGenerator.Generator.PhaseSystem.Analyzer;
+using RpgGenerator.Generator.PhaseSystem.Syntax;
+using RpgGenerator.Generator.Utilities;
 using Xunit;
 
 namespace RpgGenerator.Test.SimpleTests

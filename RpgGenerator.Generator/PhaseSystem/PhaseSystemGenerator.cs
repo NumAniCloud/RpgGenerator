@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Deptorygen.Utilities;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using RpgGenerator.Generation.Analyzer;
-using RpgGenerator.Syntax;
-using RpgGenerator.PhaseSystem.Template;
+using RpgGenerator.Generator.PhaseSystem.Analyzer;
+using RpgGenerator.Generator.PhaseSystem.Syntax;
+using RpgGenerator.Generator.PhaseSystem.Template;
+using RpgGenerator.Generator.Utilities;
 
-namespace RpgGenerator.Generation
+namespace RpgGenerator.Generator.PhaseSystem
 {
 	class PhaseSystemGenerator
 	{

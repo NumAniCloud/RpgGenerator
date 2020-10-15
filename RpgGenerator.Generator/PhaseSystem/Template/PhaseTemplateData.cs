@@ -1,6 +1,6 @@
-﻿using RpgGenerator.Generation.Analyzer;
+﻿using RpgGenerator.Generator.PhaseSystem.Analyzer;
 
-namespace RpgGenerator.PhaseSystem.Template
+namespace RpgGenerator.Generator.PhaseSystem.Template
 {
 	public partial class PhaseTemplate
 	{

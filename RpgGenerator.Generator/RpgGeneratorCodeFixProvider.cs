@@ -3,11 +3,11 @@ using System.Composition;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CodeActions;
-using RpgGenerator.Generation;
+using Microsoft.CodeAnalysis.CodeFixes;
+using RpgGenerator.Generator.PhaseSystem;
 
-namespace RpgGenerator
+namespace RpgGenerator.Generator
 {
 	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(RpgGeneratorCodeFixProvider)), Shared]
 	public class RpgGeneratorCodeFixProvider : CodeFixProvider

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Deptorygen.Utilities;
-using RpgGenerator.Syntax;
-using RpgGenerator.Utilities;
+using RpgGenerator.Generator.PhaseSystem.Syntax;
+using RpgGenerator.Generator.Utilities;
 
-namespace RpgGenerator.Generation.Analyzer
+namespace RpgGenerator.Generator.PhaseSystem.Analyzer
 {
 	public class PhaseHandlerMethodAnalyzer
 	{

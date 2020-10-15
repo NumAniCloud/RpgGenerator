@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
-using TestHelper;
+using RpgGenerator.Generator;
+using RpgGenerator.Test.Verifiers;
 using Xunit;
 
 namespace RpgGenerator.Test

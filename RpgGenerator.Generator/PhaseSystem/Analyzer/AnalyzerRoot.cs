@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using RpgGenerator.Syntax;
-using RpgGenerator.Utilities;
+using RpgGenerator.Generator.PhaseSystem.Syntax;
+using RpgGenerator.Generator.Utilities;
 
-namespace RpgGenerator.Generation.Analyzer
+namespace RpgGenerator.Generator.PhaseSystem.Analyzer
 {
 	public class AnalyzerRoot
 	{

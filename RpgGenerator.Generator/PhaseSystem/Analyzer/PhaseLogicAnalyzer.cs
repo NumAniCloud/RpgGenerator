@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using RpgGenerator.Syntax;
+using RpgGenerator.Generator.PhaseSystem.Syntax;
 
-namespace RpgGenerator.Generation.Analyzer
+namespace RpgGenerator.Generator.PhaseSystem.Analyzer
 {
 	public class PhaseLogicAnalyzer
 	{

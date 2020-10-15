@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.CodeAnalysis;
 
-namespace Deptorygen.Utilities
+namespace RpgGenerator.Generator.Utilities
 {
 	public static class Helpers
 	{

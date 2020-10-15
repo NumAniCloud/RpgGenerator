@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
-using RpgGenerator.Utilities;
+using RpgGenerator.Generator.Utilities;
 
-namespace RpgGenerator.Syntax
+namespace RpgGenerator.Generator.PhaseSystem.Syntax
 {
 	public class AdditionalParameterSyntax
 	{

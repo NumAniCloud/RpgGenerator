@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpgGenerator.Sandbox", "Rpg
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpgGenerator.Generator", "RpgGenerator.Generator\RpgGenerator.Generator.csproj", "{5AF6D771-8601-4D2A-A202-220262D62BB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpgGenerator.Annotations", "RpgGenerator.Basic\RpgGenerator.Annotations.csproj", "{2BBF7DA1-029F-4DF9-9FDC-123203EB5702}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpgGenerator.Basic", "RpgGenerator.Basic\RpgGenerator.Basic.csproj", "{2BBF7DA1-029F-4DF9-9FDC-123203EB5702}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpgGenerator.Test", "RpgGenerator.Test\RpgGenerator.Test.csproj", "{B8524426-FC47-43A4-AAC6-522F728CBE8E}"
 EndProject

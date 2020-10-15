@@ -1,7 +1,7 @@
-using Microsoft.CodeAnalysis;
 using System;
+using Microsoft.CodeAnalysis;
 
-namespace TestHelper
+namespace RpgGenerator.Test.Helpers
 {
     /// <summary>
     /// Location where the diagnostic appears, as determined by path, line number, and column number.

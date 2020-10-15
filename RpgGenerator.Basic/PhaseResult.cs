@@ -1,4 +1,4 @@
-﻿namespace RpgGenerator.Annotations
+﻿namespace RpgGenerator.Basic
 {
 	public abstract class PhaseResult<T>
 	{

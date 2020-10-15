@@ -2,13 +2,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Deptorygen.Utilities;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.FindSymbols;
-using RpgGenerator.Utilities;
+using RpgGenerator.Generator.Utilities;
 
-namespace RpgGenerator.Syntax
+namespace RpgGenerator.Generator.PhaseSystem.Syntax
 {
 	public class PhaseGroupSyntax
 	{

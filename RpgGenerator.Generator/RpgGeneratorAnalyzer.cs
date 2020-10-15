@@ -1,10 +1,10 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
-using Deptorygen.Utilities;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
+using RpgGenerator.Generator.Utilities;
 
-namespace RpgGenerator
+namespace RpgGenerator.Generator
 {
 	[DiagnosticAnalyzer(LanguageNames.CSharp)]
 	public class RpgGeneratorAnalyzer : DiagnosticAnalyzer
