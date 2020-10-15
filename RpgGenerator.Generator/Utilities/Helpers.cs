@@ -136,5 +136,15 @@ namespace RpgGenerator.Generator.Utilities
 				}
 			}
 		}
+
+		public static string GetAccessibilityKeyword(this TypeName typeName)
+		{
+			return typeName.Accessibility switch
+			{
+				Accessibility.Public => "public",
+				Accessibility.Internal => "internal",
+				_ => "internal"
+			};
+		}
 	}
 }

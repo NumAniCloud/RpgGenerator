@@ -31,6 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+	<Compile Update="PassiveDecoration\Template\PassiveDecorationTemplate.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>PassiveDecorationTemplate.tt</DependentUpon>
+	</Compile>
 	<Compile Update="PhaseSystem\Template\PhaseTemplate.cs">
 	  <DesignTime>True</DesignTime>
 	  <AutoGen>True</AutoGen>
@@ -43,9 +48,18 @@
   <ItemGroup>
 	<None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="true" PackagePath="" />
 	<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+	<None Include="PassiveDecoration\Template\PassiveDecorationTemplate.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>PassiveDecorationTemplate.tt</DependentUpon>
+	</None>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="PassiveDecoration\Template\PassiveDecorationTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PassiveDecorationTemplate.cs</LastGenOutput>
+    </None>
     <None Update="PhaseSystem\Template\PhaseTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>PhaseTemplate.cs</LastGenOutput>
