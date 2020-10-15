@@ -6,16 +6,14 @@ namespace RpgGenerator.Sandbox.Sample.Passive.User
 	class Battler : IPassiveDecorationProvider
 	{
 		public ActorAbility Ability { get; }
-		public FinalAbility FinalAbility { get; }
-		public List<PassiveEffect> Passives { get; } = new List<PassiveEffect>();
+		public List<PassiveDecoration> Passives { get; } = new List<PassiveDecoration>();
 
 		public Battler(ActorAbility ability)
 		{
 			Ability = ability;
-			FinalAbility = new FinalAbility(ability, this);
 		}
 
-		public IEnumerable<PassiveEffect> GetPassiveEffects()
+		public IEnumerable<PassiveDecoration> GetPassiveDecorations()
 		{
 			// 武器や防具のパッシブ効果などもここで提供する
 			return Passives;

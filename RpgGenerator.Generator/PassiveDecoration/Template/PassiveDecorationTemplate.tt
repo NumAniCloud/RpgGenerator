@@ -32,17 +32,17 @@ namespace <#= Root.SourceType.FullNamespace #>
 
 	<#= accessibility #> sealed class <#= Root.Decorator.DecorationName #>HookHandler : IPassiveDecoratorHookHandler
 	{
-		public Task BeforeEventAsync(<#= Root.ProviderName #> provider, IBattleEvent @event)
+		public Task BeforeEventAsync(IPassiveDecorationProviderBase provider, IBattleEvent @event)
 			=> RunAsync(provider, p => SelectBefore(p, @event));
 		
-		public Task AfterEventAsync(<#= Root.ProviderName #> provider, IBattleEvent @event)
+		public Task AfterEventAsync(IPassiveDecorationProviderBase provider, IBattleEvent @event)
 			=> RunAsync(provider, p => SelectAfter(p, @event));
 
-		private async Task RunAsync(<#= Root.ProviderName #> provider, Func<PassiveDecoration, Task> selector)
+		private async Task RunAsync(IPassiveDecorationProviderBase provider, Func<PassiveDecoration, Task> selector)
 		{
-			if (!(provider is <#= Root.ProviderName #>)) return;
+			if (!(provider is <#= Root.ProviderName #> concreteProvider)) return;
 
-			foreach (var passiveEffect in provider.GetPassiveDecorations())
+			foreach (var passiveEffect in concreteProvider.GetPassiveDecorations())
 			{
 				await selector(passiveEffect);
 			}

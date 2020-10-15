@@ -4,7 +4,7 @@ using RpgGenerator.Sandbox.Sample.BattleEvent.User;
 
 namespace RpgGenerator.Sandbox.Sample.Passive.User
 {
-	class RagePassiveEffect : PassiveEffect
+	class RagePassiveEffect : PassiveDecoration
 	{
 		private readonly RagePassiveEffectDataStore _dataStore;
 

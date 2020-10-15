@@ -156,39 +156,26 @@ namespace RpgGenerator.Generator.PassiveDecoration.Template
             
             #line default
             #line hidden
-            this.Write("HookHandler : IPassiveDecoratorHookHandler\r\n\t{\r\n\t\tpublic Task BeforeEventAsync(");
-            
-            #line 35 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveDecorationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Root.ProviderName));
-            
-            #line default
-            #line hidden
-            this.Write(" provider, IBattleEvent @event)\r\n\t\t\t=> RunAsync(provider, p => SelectBefore(p, @e" +
-                    "vent));\r\n\t\t\r\n\t\tpublic Task AfterEventAsync(");
-            
-            #line 38 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveDecorationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Root.ProviderName));
-            
-            #line default
-            #line hidden
-            this.Write(" provider, IBattleEvent @event)\r\n\t\t\t=> RunAsync(provider, p => SelectAfter(p, @ev" +
-                    "ent));\r\n\r\n\t\tprivate async Task RunAsync(");
-            
-            #line 41 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveDecorationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Root.ProviderName));
-            
-            #line default
-            #line hidden
-            this.Write(" provider, Func<PassiveDecoration, Task> selector)\r\n\t\t{\r\n\t\t\tif (!(provider is ");
+            this.Write(@"HookHandler : IPassiveDecoratorHookHandler
+	{
+		public Task BeforeEventAsync(IPassiveDecorationProviderBase provider, IBattleEvent @event)
+			=> RunAsync(provider, p => SelectBefore(p, @event));
+		
+		public Task AfterEventAsync(IPassiveDecorationProviderBase provider, IBattleEvent @event)
+			=> RunAsync(provider, p => SelectAfter(p, @event));
+
+		private async Task RunAsync(IPassiveDecorationProviderBase provider, Func<PassiveDecoration, Task> selector)
+		{
+			if (!(provider is ");
             
             #line 43 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveDecorationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Root.ProviderName));
             
             #line default
             #line hidden
-            this.Write(")) return;\r\n\r\n\t\t\tforeach (var passiveEffect in provider.GetPassiveDecorations())\r" +
-                    "\n\t\t\t{\r\n\t\t\t\tawait selector(passiveEffect);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\tprivate Task SelectBef" +
-                    "ore(");
+            this.Write(" concreteProvider)) return;\r\n\r\n\t\t\tforeach (var passiveEffect in concreteProvider." +
+                    "GetPassiveDecorations())\r\n\t\t\t{\r\n\t\t\t\tawait selector(passiveEffect);\r\n\t\t\t}\r\n\t\t}\r\n\r" +
+                    "\n\t\tprivate Task SelectBefore(");
             
             #line 51 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveDecorationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Root.Decorator.DecorationName));

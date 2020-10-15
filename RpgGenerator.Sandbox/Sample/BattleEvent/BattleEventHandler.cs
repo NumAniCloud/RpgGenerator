@@ -3,17 +3,16 @@ using System.Reactive;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using RpgGenerator.Basic;
-using RpgGenerator.Sandbox.Sample.Passive;
 
 namespace RpgGenerator.Sandbox.Sample.BattleEvent
 {
 	class BattleEventHandler : IBattleEventHandler
 	{
-		private readonly IPassiveEventHook _passiveEventHook;
+		private readonly IPassiveDecoratorHookHandler _passiveEventHook;
 		private readonly Subject<Unit> _onBattleEventFinish = new Subject<Unit>();
 		public IObservable<Unit> OnBattleEventFinish => _onBattleEventFinish;
 
-		public BattleEventHandler(IPassiveEventHook passiveEventHook)
+		public BattleEventHandler(IPassiveDecoratorHookHandler passiveEventHook)
 		{
 			_passiveEventHook = passiveEventHook;
 		}

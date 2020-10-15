@@ -21,17 +21,17 @@ namespace RpgGenerator.Sandbox.Sample.Passive.User
 
 	internal sealed class PassiveDecorationHookHandler : IPassiveDecoratorHookHandler
 	{
-		public Task BeforeEventAsync(IPassiveDecorationProvider provider, IBattleEvent @event)
+		public Task BeforeEventAsync(IPassiveDecorationProviderBase provider, IBattleEvent @event)
 			=> RunAsync(provider, p => SelectBefore(p, @event));
 		
-		public Task AfterEventAsync(IPassiveDecorationProvider provider, IBattleEvent @event)
+		public Task AfterEventAsync(IPassiveDecorationProviderBase provider, IBattleEvent @event)
 			=> RunAsync(provider, p => SelectAfter(p, @event));
 
-		private async Task RunAsync(IPassiveDecorationProvider provider, Func<PassiveDecoration, Task> selector)
+		private async Task RunAsync(IPassiveDecorationProviderBase provider, Func<PassiveDecoration, Task> selector)
 		{
-			if (!(provider is IPassiveDecorationProvider)) return;
+			if (!(provider is IPassiveDecorationProvider concreteProvider)) return;
 
-			foreach (var passiveEffect in provider.GetPassiveDecorations())
+			foreach (var passiveEffect in concreteProvider.GetPassiveDecorations())
 			{
 				await selector(passiveEffect);
 			}
