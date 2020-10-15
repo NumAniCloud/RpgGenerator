@@ -1,14 +1,15 @@
 ﻿using System.Linq;
 using RpgGenerator.Generator.PassiveDecoration.Syntax;
+using RpgGenerator.Generator.Utilities;
 
 namespace RpgGenerator.Generator.PassiveDecoration.Semantics
 {
 	public class FinalAttributeSemantics
 	{
-		public string AttributeTypeName { get; }
+		public TypeName AttributeTypeName { get; }
 		public FinalAttributeMemberSemantics[] Members { get; }
 
-		public FinalAttributeSemantics(string attributeTypeName, FinalAttributeMemberSemantics[] members)
+		public FinalAttributeSemantics(TypeName attributeTypeName, FinalAttributeMemberSemantics[] members)
 		{
 			AttributeTypeName = attributeTypeName;
 			Members = members;
@@ -17,7 +18,7 @@ namespace RpgGenerator.Generator.PassiveDecoration.Semantics
 		public static FinalAttributeSemantics[] FromSyntax(PassiveDeclarationSyntax syntax)
 		{
 			return syntax.Parameters
-				.Select(x => new FinalAttributeSemantics(x.TypeName.Name,
+				.Select(x => new FinalAttributeSemantics(x.TypeName,
 					FinalAttributeMemberSemantics.FromSyntax(x)))
 				.ToArray();
 		}

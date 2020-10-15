@@ -2,6 +2,7 @@
 using System.Reactive;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
+using RpgGenerator.Basic;
 using RpgGenerator.Sandbox.Sample.Passive;
 
 namespace RpgGenerator.Sandbox.Sample.BattleEvent
@@ -17,7 +18,7 @@ namespace RpgGenerator.Sandbox.Sample.BattleEvent
 			_passiveEventHook = passiveEventHook;
 		}
 
-		public async Task HandleAsync(IPassiveEventProvider eventSubject, IBattleEvent @event)
+		public async Task HandleAsync(IPassiveDecorationProviderBase eventSubject, IBattleEvent @event)
 		{
 			await _passiveEventHook.BeforeEventAsync(eventSubject, @event);
 			await @event.RunAsync(this);

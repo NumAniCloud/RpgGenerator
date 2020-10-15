@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace RpgGenerator.Sandbox.Sample.BattleEvent
+namespace RpgGenerator.Basic
 {
-	interface IBattleEvent
+	public interface IBattleEvent
 	{
 		Task RunAsync(IBattleEventHandler handler);
 	}

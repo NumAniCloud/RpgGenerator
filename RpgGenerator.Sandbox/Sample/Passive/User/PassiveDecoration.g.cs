@@ -5,18 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RpgGenerator.Basic;
+using RpgGenerator.Sandbox.Sample.BattleEvent.User;
 
-namespace RpgGenerator.Test.DataSource.PassiveDecorationUnitTests.Basic.Source
+namespace RpgGenerator.Sandbox.Sample.Passive.User
 {
-	public abstract class PassiveDecoration
+	internal abstract class PassiveDecoration
 	{
-		public virtual Task BeforeEventAsync(DamageEvent @event) => Task.CompletedTask;
-		public virtual Task AfterEventAsync(DamageEvent @event) => Task.CompletedTask;
+		public virtual Task BeforeEventAsync(AttackBattleEvent @event) => Task.CompletedTask;
+		public virtual Task AfterEventAsync(AttackBattleEvent @event) => Task.CompletedTask;
+		public virtual Task BeforeEventAsync(DamageBattleEvent @event) => Task.CompletedTask;
+		public virtual Task AfterEventAsync(DamageBattleEvent @event) => Task.CompletedTask;
 		public virtual int ModifyAttack(int source) => source;
 		public virtual int ModifyDefence(int source) => source;
 	}
 
-	public sealed class PassiveDecorationHookHandler : IPassiveDecoratorHookHandler
+	internal sealed class PassiveDecorationHookHandler : IPassiveDecoratorHookHandler
 	{
 		public Task BeforeEventAsync(IPassiveDecorationProvider provider, IBattleEvent @event)
 			=> RunAsync(provider, p => SelectBefore(p, @event));
@@ -36,23 +39,25 @@ namespace RpgGenerator.Test.DataSource.PassiveDecorationUnitTests.Basic.Source
 
 		private Task SelectBefore(PassiveDecoration passive, IBattleEvent @event) => @event switch
 		{
-			DamageEvent ev0 => passive.BeforeEventAsync(ev0),
+			AttackBattleEvent ev0 => passive.BeforeEventAsync(ev0),
+			DamageBattleEvent ev1 => passive.BeforeEventAsync(ev1),
 			_ => Task.CompletedTask,
 		};
 
 		private Task SelectAfter(PassiveDecoration passive, IBattleEvent @event) => @event switch
 		{
-			DamageEvent ev0 => passive.AfterEventAsync(ev0),
+			AttackBattleEvent ev0 => passive.AfterEventAsync(ev0),
+			DamageBattleEvent ev1 => passive.AfterEventAsync(ev1),
 			_ => Task.CompletedTask,
 		};
 	}
 
-	public sealed class FinalAttributes
+	internal sealed class FinalActorAbility
 	{
-		private readonly Attributes _baseAttribute;
+		private readonly ActorAbility _baseAttribute;
 		private readonly IPassiveDecorationProvider _provider;
 
-		public FinalAttributes(Attributes baseAttribute, IPassiveDecorationProvider provider)
+		public FinalActorAbility(ActorAbility baseAttribute, IPassiveDecorationProvider provider)
 		{
 			_baseAttribute = baseAttribute;
 			_provider = provider;
@@ -68,7 +73,7 @@ namespace RpgGenerator.Test.DataSource.PassiveDecorationUnitTests.Basic.Source
 		}
 	}
 
-	public interface IPassiveDecorationProvider : IPassiveDecorationProviderBase
+	internal interface IPassiveDecorationProvider : IPassiveDecorationProviderBase
 	{
 		IEnumerable<PassiveDecoration> GetPassiveDecorations();
 	}

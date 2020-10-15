@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RpgGenerator.Sandbox.Sample.Passive;
+﻿using System.Collections.Generic;
+using RpgGenerator.Sandbox.Sample.Passive.User;
 
 namespace RpgGenerator.Sandbox.Sample.BattleEvent.User
 {
-	class PassiveSubject : IPassiveEventProvider
+	class PassiveSubject : IPassiveDecorationProvider
 	{
-		public IEnumerable<PassiveEffect> GetPassiveEffects()
+		public IEnumerable<PassiveDecoration> GetPassiveDecorations()
 		{
-			return new List<PassiveEffect>();
+			return new List<PassiveDecoration>();
 		}
 	}
 }

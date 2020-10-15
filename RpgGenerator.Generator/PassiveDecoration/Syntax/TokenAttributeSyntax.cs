@@ -22,10 +22,6 @@ namespace RpgGenerator.Generator.PassiveDecoration.Syntax
 
 		public static async Task<TokenAttributeSyntax[]> FromParseAsync(ClassDeclarationSyntax declaration, Document document, CancellationToken ct)
 		{
-			var ns = declaration.Parent is NamespaceDeclarationSyntax nsds
-				? (nsds.Name is QualifiedNameSyntax qns ? qns.ToString() : throw new Exception())
-				: throw new Exception();
-
 			async Task<INamedTypeSymbol?> GetClassAsync(FieldDeclarationSyntax field)
 			{
 				if (field.Declaration.Variables.Count != 1)
@@ -41,8 +37,7 @@ namespace RpgGenerator.Generator.PassiveDecoration.Syntax
 					ct);
 
 				return symbol.OfType<INamedTypeSymbol>()
-					.Where(x => !x.Interfaces.Any(y => y.Name == "IBattleEvent"))
-					.FirstOrDefault(x => x.GetFullNameSpace() == ns);
+					.FirstOrDefault(x => !x.Interfaces.Any(y => y.Name == "IBattleEvent"));
 			}
 
 			var symbols = declaration.Members

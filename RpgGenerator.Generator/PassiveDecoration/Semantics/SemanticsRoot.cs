@@ -1,4 +1,5 @@
-﻿using RpgGenerator.Generator.PassiveDecoration.Syntax;
+﻿using System.Linq;
+using RpgGenerator.Generator.PassiveDecoration.Syntax;
 using RpgGenerator.Generator.Utilities;
 
 namespace RpgGenerator.Generator.PassiveDecoration.Semantics
@@ -20,6 +21,15 @@ namespace RpgGenerator.Generator.PassiveDecoration.Semantics
 			SourceType = sourceType;
 			ProviderName = providerName;
 			DecorationName = decorationName;
+		}
+
+		public string[] GetImports()
+		{
+			return FinalAttribute.Select(x => x.AttributeTypeName.FullNamespace)
+				.Concat(Decorator.GetImports())
+				.Except(new []{ SourceType.FullNamespace })
+				.Distinct()
+				.ToArray();
 		}
 
 		public static SemanticsRoot FromSyntax(PassiveDeclarationSyntax syntax)

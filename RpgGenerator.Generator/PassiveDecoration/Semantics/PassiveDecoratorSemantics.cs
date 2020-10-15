@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using RpgGenerator.Generator.PassiveDecoration.Syntax;
 
@@ -16,6 +17,11 @@ namespace RpgGenerator.Generator.PassiveDecoration.Semantics
 			DecorationName = decorationName;
 			Hooks = hooks;
 			Modifiers = modifiers;
+		}
+
+		public string[] GetImports()
+		{
+			return Hooks.Select(x => x.EventTypeName.FullNamespace).ToArray();
 		}
 
 		public static PassiveDecoratorSemantics FromSyntax(PassiveDeclarationSyntax syntax)

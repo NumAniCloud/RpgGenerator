@@ -3,7 +3,7 @@
 namespace RpgGenerator.Basic
 {
 	[AttributeUsage(AttributeTargets.Class)]
-	class PassiveDecorationAttribute : Attribute
+	public class PassiveDecorationAttribute : Attribute
 	{
 	}
 }

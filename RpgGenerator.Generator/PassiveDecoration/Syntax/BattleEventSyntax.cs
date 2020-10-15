@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
@@ -20,10 +19,6 @@ namespace RpgGenerator.Generator.PassiveDecoration.Syntax
 
 		public static async Task<BattleEventSyntax[]> FromParseAsync(ClassDeclarationSyntax declaration, Document document, CancellationToken ct)
 		{
-			var ns = declaration.Parent is NamespaceDeclarationSyntax nsds
-				? (nsds.Name is QualifiedNameSyntax qns ? qns.ToString() : throw new Exception())
-				: throw new Exception();
-
 			async Task<INamedTypeSymbol?> GetSymbol(FieldDeclarationSyntax field)
 			{
 				if (field.Declaration.Variables.Count != 1)
@@ -31,15 +26,15 @@ namespace RpgGenerator.Generator.PassiveDecoration.Syntax
 					return null;
 				}
 
-				var fieldName = field.Declaration.Variables[0].Identifier.ValueText;
+				var fieldName = field.Declaration.Type.ToString();
 				var symbol = await SymbolFinder.FindSourceDeclarationsAsync(
 					document.Project,
 					fieldName,
 					false,
 					ct);
-				return symbol.OfType<INamedTypeSymbol>()
-					.Where(x => x.Interfaces.Any(y => y.Name == "IBattleEvent"))
-					.FirstOrDefault(x => x.GetFullNameSpace() == ns);
+				return symbol
+					.OfType<INamedTypeSymbol>()
+					.FirstOrDefault(x => x.Interfaces.Any(y => y.Name == "IBattleEvent"));
 			}
 
 			var symbolTasks = declaration.Members
