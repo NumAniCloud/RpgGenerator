@@ -19,8 +19,9 @@ namespace RpgGenerator.Generator.PassiveDecoration.Syntax
 		{
 			return namedTypeSymbol.GetMembers()
 				.OfType<IPropertySymbol>()
+				.Where(x => !x.Type.Interfaces.Any(y => y.Name == "IBattleEvent"))
 				.Select(x =>
-					new AttributeMemberSyntax(x.Type is INamedTypeSymbol nts ? nts.Name : throw new Exception(),
+					new AttributeMemberSyntax(x.Type is INamedTypeSymbol nts ? Utilities.TypeName.FromSymbol(nts).Name : throw new Exception(),
 						x.Name))
 				.ToArray();
 		}

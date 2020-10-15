@@ -129,4 +129,13 @@
     <value>フェーズシステムの実装を生成できます</value>
     <comment>The title of the diagnostic.</comment>
   </data>
+  <data name="PassiveDescription" xml:space="preserve">
+    <value>パッシブ修飾システムの実装を生成できます</value>
+  </data>
+  <data name="PassiveMessageFormat" xml:space="preserve">
+    <value>パッシブ修飾システムの実装を生成できます</value>
+  </data>
+  <data name="PassiveTitle" xml:space="preserve">
+    <value>パッシブ修飾システムの実装を生成できます</value>
+  </data>
 </root>

@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-	<ProjectReference Include="..\RpgGenerator.Annotations\RpgGenerator.Annotations.csproj" />
-	<ProjectReference Include="..\RpgGenerator\RpgGenerator\RpgGenerator.csproj">
+	<ProjectReference Include="..\RpgGenerator.Basic\RpgGenerator.Basic.csproj" />
+	<ProjectReference Include="..\RpgGenerator.Generator\RpgGenerator.Generator.csproj">
 		<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 		<OutputItemType>Analyzer</OutputItemType>
 	</ProjectReference>

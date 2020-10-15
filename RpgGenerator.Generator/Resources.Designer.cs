@@ -86,5 +86,32 @@ namespace RpgGenerator.Generator {
                 return ResourceManager.GetString("AnalyzerTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   パッシブ修飾システムの実装を生成できます に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string PassiveDescription {
+            get {
+                return ResourceManager.GetString("PassiveDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   パッシブ修飾システムの実装を生成できます に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string PassiveMessageFormat {
+            get {
+                return ResourceManager.GetString("PassiveMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   パッシブ修飾システムの実装を生成できます に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string PassiveTitle {
+            get {
+                return ResourceManager.GetString("PassiveTitle", resourceCulture);
+            }
+        }
     }
 }

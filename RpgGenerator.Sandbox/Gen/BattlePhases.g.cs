@@ -2,7 +2,7 @@
 #nullable enable
 using System;
 using System.Threading.Tasks;
-using RpgGenerator.Annotations;
+using RpgGenerator.Basic;
 
 namespace RpgGenerator.Sandbox.Gen
 {

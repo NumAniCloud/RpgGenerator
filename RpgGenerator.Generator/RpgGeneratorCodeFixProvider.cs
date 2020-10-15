@@ -1,10 +1,12 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Composition;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
+using RpgGenerator.Generator.PassiveDecoration;
 using RpgGenerator.Generator.PhaseSystem;
 
 namespace RpgGenerator.Generator
@@ -12,9 +14,12 @@ namespace RpgGenerator.Generator
 	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(RpgGeneratorCodeFixProvider)), Shared]
 	public class RpgGeneratorCodeFixProvider : CodeFixProvider
 	{
-		private const string Title = "Generate phase system";
-
-		public sealed override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(RpgGeneratorAnalyzer.DiagnosticId);
+		public sealed override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.CreateRange(
+			new List<string>
+			{
+				PhaseSystemGenerator.Id,
+				PassiveDecorationGenerator.Id,
+			});
 
 		public sealed override FixAllProvider GetFixAllProvider()
 		{
@@ -25,12 +30,23 @@ namespace RpgGenerator.Generator
 		{
 			var diagnostic = context.Diagnostics.First();
 
-			context.RegisterCodeFix(
-				CodeAction.Create(
-					title: Title,
+			var action = diagnostic.Id switch
+			{
+				PhaseSystemGenerator.Id => CodeAction.Create(
+					title: "Generate phase system",
 					createChangedSolution: c => PhaseSystemGenerator.ApplyCodeFixAsync(context.Document, diagnostic.Location.SourceSpan, c), 
-					equivalenceKey: Title),
-				diagnostic);
+					equivalenceKey: PhaseSystemGenerator.Id),
+				PassiveDecorationGenerator.Id => CodeAction.Create(
+					title: "Generate passive decorator system",
+					createChangedSolution: c => PassiveDecorationGenerator.ApplyCodeFix(context.Document, diagnostic.Location.SourceSpan, c), 
+					equivalenceKey: PassiveDecorationGenerator.Id),
+				_ => null
+			};
+
+			if (action is {})
+			{
+				context.RegisterCodeFix(action, diagnostic);
+			}
 
 			return Task.CompletedTask;
 		}

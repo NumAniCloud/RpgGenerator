@@ -12,10 +12,9 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using Newtonsoft.Json;
-using RpgGenerator.Test.Helpers;
 using Xunit;
 
-namespace RpgGenerator.Test.Verifiers
+namespace RpgGenerator.Test
 {
 	public abstract class ConventionCodeFixVerifier : CodeFixVerifier
 	{
@@ -161,7 +160,7 @@ namespace RpgGenerator.Test.Verifiers
 
 				foreach (var doc in project.Documents)
 				{
-					var code = Helpers.CodeFixVerifier.GetStringFromDocument(doc);
+					var code = CodeFixVerifier.GetStringFromDocument(doc);
 					actualSources.Add(doc.Name, code);
 				}
 
@@ -254,14 +253,14 @@ namespace RpgGenerator.Test.Verifiers
 
 		protected Project CreateProject(Dictionary<string, string> sources)
 		{
-			string fileNamePrefix = Helpers.DiagnosticVerifier.DefaultFilePathPrefix;
-			string fileExt = Helpers.DiagnosticVerifier.CSharpDefaultFileExt;
+			string fileNamePrefix = DiagnosticVerifier.DefaultFilePathPrefix;
+			string fileExt = DiagnosticVerifier.CSharpDefaultFileExt;
 
-			var projectId = ProjectId.CreateNewId(debugName: Helpers.DiagnosticVerifier.TestProjectName);
+			var projectId = ProjectId.CreateNewId(debugName: DiagnosticVerifier.TestProjectName);
 
 			var solution = new AdhocWorkspace()
 				.CurrentSolution
-				.AddProject(projectId, Helpers.DiagnosticVerifier.TestProjectName, Helpers.DiagnosticVerifier.TestProjectName, LanguageNames.CSharp);
+				.AddProject(projectId, DiagnosticVerifier.TestProjectName, DiagnosticVerifier.TestProjectName, LanguageNames.CSharp);
 
 			foreach (var reference in References)
 			{

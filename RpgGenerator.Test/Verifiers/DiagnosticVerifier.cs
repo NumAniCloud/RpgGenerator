@@ -3,10 +3,9 @@ using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using RpgGenerator.Test.Helpers;
 using Xunit;
 
-namespace RpgGenerator.Test.Verifiers
+namespace RpgGenerator.Test
 {
     /// <summary>
     /// Superclass of all Unit Tests for DiagnosticAnalyzers
@@ -81,7 +80,7 @@ namespace RpgGenerator.Test.Verifiers
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources</param>
         private void VerifyDiagnostics(string[] sources, string language, DiagnosticAnalyzer analyzer, params DiagnosticResult[] expected)
         {
-            var diagnostics = Helpers.DiagnosticVerifier.GetSortedDiagnostics(sources, language, analyzer);
+            var diagnostics = DiagnosticVerifier.GetSortedDiagnostics(sources, language, analyzer);
             VerifyDiagnosticResults(diagnostics, analyzer, expected);
         }
 

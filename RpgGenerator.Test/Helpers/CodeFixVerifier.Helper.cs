@@ -6,13 +6,13 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Simplification;
 
-namespace RpgGenerator.Test.Helpers
+namespace RpgGenerator.Test
 {
     /// <summary>
     /// Diagnostic Producer class with extra methods dealing with applying codefixes
     /// All methods are static
     /// </summary>
-    public abstract partial class CodeFixVerifier : Verifiers.DiagnosticVerifier
+    public abstract partial class CodeFixVerifier : DiagnosticVerifier
     {
         /// <summary>
         /// Apply the inputted CodeAction to the inputted document.

@@ -5,27 +5,30 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using RpgGenerator.Generator.PhaseSystem.Analyzer;
-using RpgGenerator.Generator.PhaseSystem.Syntax;
-using RpgGenerator.Generator.PhaseSystem.Template;
+using RpgGenerator.Generator.PassiveDecoration.Semantics;
+using RpgGenerator.Generator.PassiveDecoration.Syntax;
+using RpgGenerator.Generator.PassiveDecoration.Template;
 using RpgGenerator.Generator.Utilities;
 
-namespace RpgGenerator.Generator.PhaseSystem
+namespace RpgGenerator.Generator.PassiveDecoration
 {
-	class PhaseSystemGenerator
+	class PassiveDecorationGenerator
 	{
-		private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.AnalyzerTitle), Resources.ResourceManager, typeof(Resources));
-		private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.AnalyzerMessageFormat), Resources.ResourceManager, typeof(Resources));
-		private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.AnalyzerDescription), Resources.ResourceManager, typeof(Resources));
+		private static readonly LocalizableString Title = new LocalizableResourceString(
+			nameof(Resources.PassiveTitle), Resources.ResourceManager, typeof(Resources));
+		private static readonly LocalizableString MessageFormat = new LocalizableResourceString(
+			nameof(Resources.PassiveMessageFormat), Resources.ResourceManager, typeof(Resources));
+		private static readonly LocalizableString Description = new LocalizableResourceString(
+			nameof(Resources.PassiveDescription), Resources.ResourceManager, typeof(Resources));
 		private const string Category = "Implementation";
 
-		public const string Id = "RPG001";
+		public const string Id = "RPG002";
 		public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
 			Id, Title, MessageFormat, Category,
 			DiagnosticSeverity.Info, isEnabledByDefault: true,
 			description: Description);
 
-		public static async Task<Solution> ApplyCodeFixAsync(Document document, TextSpan diagnosticSpan, CancellationToken ct)
+		public static async Task<Solution> ApplyCodeFix(Document document, TextSpan diagnosticSpan, CancellationToken ct)
 		{
 			var root = await document.GetSyntaxRootAsync(ct).ConfigureAwait(false);
 			var declaration = root.FindToken(diagnosticSpan.Start)
@@ -34,20 +37,20 @@ namespace RpgGenerator.Generator.PhaseSystem
 				.OfType<TypeDeclarationSyntax>()
 				.First();
 
-			if (!(declaration is InterfaceDeclarationSyntax ids))
+			if (!(declaration is ClassDeclarationSyntax ids))
 				return document.Project.Solution;
 
-			var syntax = await PhaseGroupSyntax.FromDeclarationAsync(ids, document, ct);
-			var semantics = AnalyzerRoot.FromPhaseGroup(syntax);
-			var template = new PhaseTemplate(semantics);
+			var syntax = await PassiveDeclarationSyntax.FromParseAsync(ids, document, ct);
+			var semantics = SemanticsRoot.FromSyntax(syntax);
+			var template = new PassiveDecorationTemplate(semantics);
 			return ApplyGeneratedCode(document, template);
 		}
 
-		private static Solution ApplyGeneratedCode(Document document, PhaseTemplate template)
+		private static Solution ApplyGeneratedCode(Document document, PassiveDecorationTemplate template)
 		{
 			var code = template.TransformText();
 
-			var fileName = $"{template.Root.PhaseGroupName}.g.cs";
+			var fileName = $"{template.Root.DecorationName}.g.cs";
 			var existing = document.Project.Documents
 				.Where(d => d.Folders.IsStructualEqual(document.Folders))
 				.FirstOrDefault(d => d.Name == fileName);

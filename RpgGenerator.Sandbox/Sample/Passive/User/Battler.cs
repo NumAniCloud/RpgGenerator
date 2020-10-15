@@ -3,7 +3,7 @@ using RpgGenerator.Sandbox.Sample.BattleEvent;
 
 namespace RpgGenerator.Sandbox.Sample.Passive.User
 {
-	class Battler : IPassiveEventProvider
+	class Battler : IPassiveDecorationProvider
 	{
 		public ActorAbility Ability { get; }
 		public FinalAbility FinalAbility { get; }

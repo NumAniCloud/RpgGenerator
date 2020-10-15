@@ -10,9 +10,9 @@ namespace RpgGenerator.Sandbox.Sample.Passive.User
 	class FinalAbility
 	{
 		private readonly ActorAbility _baseAbility;
-		private readonly IPassiveEventProvider _passiveEventProvider;
+		private readonly IPassiveDecorationProvider _passiveEventProvider;
 
-		public FinalAbility(ActorAbility baseAbility, IPassiveEventProvider passiveEventProvider)
+		public FinalAbility(ActorAbility baseAbility, IPassiveDecorationProvider passiveEventProvider)
 		{
 			this._baseAbility = baseAbility;
 			_passiveEventProvider = passiveEventProvider;

@@ -16,7 +16,12 @@ namespace RpgGenerator.Sandbox.Sample.Passive
 				_ => Task.CompletedTask,
 			};
 
-			foreach (var passiveEffect in passive1.GetPassiveEffects())
+			if (!(passive1 is IPassiveDecorationProvider provider))
+			{
+				return;
+			}
+
+			foreach (var passiveEffect in provider.GetPassiveEffects())
 			{
 				await SelectFunc(passiveEffect);
 			}
@@ -31,7 +36,12 @@ namespace RpgGenerator.Sandbox.Sample.Passive
 				_ => Task.CompletedTask,
 			};
 
-			foreach (var passiveEffect in passive1.GetPassiveEffects())
+			if (!(passive1 is IPassiveDecorationProvider provider))
+			{
+				return;
+			}
+
+			foreach (var passiveEffect in provider.GetPassiveEffects())
 			{
 				await SelectFunc(passiveEffect);
 			}

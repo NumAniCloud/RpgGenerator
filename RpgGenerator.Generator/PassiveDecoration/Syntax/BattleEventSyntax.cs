@@ -38,7 +38,7 @@ namespace RpgGenerator.Generator.PassiveDecoration.Syntax
 					false,
 					ct);
 				return symbol.OfType<INamedTypeSymbol>()
-					.Where(x => x.BaseType.Name == "IBattleEvent")
+					.Where(x => x.Interfaces.Any(y => y.Name == "IBattleEvent"))
 					.FirstOrDefault(x => x.GetFullNameSpace() == ns);
 			}
 

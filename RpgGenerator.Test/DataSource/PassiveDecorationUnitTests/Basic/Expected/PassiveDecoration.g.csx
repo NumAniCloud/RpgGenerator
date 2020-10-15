@@ -2,6 +2,7 @@
 #nullable enable
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using RpgGenerator.Basic;
 
 namespace RpgGenerator.Test.DataSource.PassiveDecorationUnitTests.Basic.Source
@@ -16,51 +17,56 @@ namespace RpgGenerator.Test.DataSource.PassiveDecorationUnitTests.Basic.Source
 
 	public sealed class PassiveDecorationHookHandler : IPassiveDecoratorHookHandler
 	{
-		public async Task BeforeEventAsync(IPassiveEventProvider provider, IBattleEvent @event)
-		{
-			Task SelectFunc(PassiveDecoration passive) => @event switch
-			{
-				DamageEvent ev0 => passive.BeforeEventAsync(ev0),
-				_ => Task.CompletedTask,
-			};
-
-			foreach (var passiveEffect in provider.GetPassiveEffects())
-			{
-				await SelectFunc(passiveEffect);
-			}
-		}
+		public Task BeforeEventAsync(IPassiveDecorationProvider provider, IBattleEvent @event) => RunAsync(provider, SelectBefore);
 		
-		public async Task AfterEventAsync(IPassiveEventProvider provider, IBattleEvent @event)
-		{
-			Task SelectFunc(PassiveDecoration passive) => @event switch
-			{
-				DamageEvent ev0 => passive.AfterEventAsync(ev0),
-				_ => Task.CompletedTask,
-			};
+		public Task AfterEventAsync(IPassiveDecorationProvider provider, IBattleEvent @event) => RunAsync(provider, SelectAfter);
 
-			foreach (var passiveEffect in provider.GetPassiveEffects())
+		private async Task RunAsync(IPassiveDecorationProvider provider, Func<PassiveDecoration, Task> selector)
+		{
+			if (!(provider is IPassiveDecorationProvider)) return;
+
+			foreach (var passiveEffect in provider.GetPassiveDecorations())
 			{
-				await SelectFunc(passiveEffect);
+				await selector(passiveEffect);
 			}
 		}
+
+		private Task SelectBefore(PassiveDecoration passive) => @event switch
+		{
+			DamageEvent ev0 => passive.BeforeEventAsync(ev0),
+			_ => Task.CompletedTask,
+		};
+
+		private Task SelectAfter(PassiveDecoration passive) => @event switch
+		{
+			DamageEvent ev0 => passive.AfterEventAsync(ev0),
+			_ => Task.CompletedTask,
+		};
 	}
 
 	public sealed class FinalAttributes
 	{
-		private readonly Attribute _baseAttribute;
+		private readonly Attributes _baseAttribute;
+		private readonly IPassiveDecorationProvider _provider;
 
-		public FinalAttributes(Attribute baseAttribute)
+		public FinalAttributes(Attributes baseAttribute, IPassiveDecorationProvider provider)
 		{
 			_baseAttribute = baseAttribute;
+			_provider = provider;
 		}
 
 		public int Attack => Aggregate(_baseAttribute.Attack, p => p.ModifyAttack);
 		public int Defence => Aggregate(_baseAttribute.Defence, p => p.ModifyDefence);
-		
-		private T Aggregate<T>(T source, Func<PassiveEffect, Func<T, T>> getModifier)
+
+		private T Aggregate<T>(T source, Func<PassiveDecoration, Func<T, T>> getModifier)
 		{
-			return _passiveEventProvider.GetPassiveEffects()
+			return _provider.GetPassiveDecorations()
 				.Aggregate(source, (arg1, effect) => getModifier.Invoke(effect).Invoke(arg1));
 		}
+	}
+
+	public interface IPassiveDecorationProvider
+	{
+		IEnumerable<PassiveDecoration> GetPassiveDecorations();
 	}
 }

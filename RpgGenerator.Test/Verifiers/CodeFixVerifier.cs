@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Formatting;
 using Xunit;
 
-namespace RpgGenerator.Test.Verifiers
+namespace RpgGenerator.Test
 {
     /// <summary>
     /// Superclass of all Unit tests made for diagnostics with codefixes.
@@ -67,9 +67,9 @@ namespace RpgGenerator.Test.Verifiers
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied</param>
         private void VerifyFix(string language, DiagnosticAnalyzer analyzer, CodeFixProvider codeFixProvider, string oldSource, string newSource, int? codeFixIndex, bool allowNewCompilerDiagnostics)
         {
-            var document = Helpers.DiagnosticVerifier.CreateDocument(oldSource, language);
-            var analyzerDiagnostics = Helpers.DiagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
-            var compilerDiagnostics = Helpers.CodeFixVerifier.GetCompilerDiagnostics(document);
+            var document = DiagnosticVerifier.CreateDocument(oldSource, language);
+            var analyzerDiagnostics = DiagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
+            var compilerDiagnostics = CodeFixVerifier.GetCompilerDiagnostics(document);
             var attempts = analyzerDiagnostics.Length;
 
             for (int i = 0; i < attempts; ++i)
@@ -85,21 +85,21 @@ namespace RpgGenerator.Test.Verifiers
 
                 if (codeFixIndex != null)
                 {
-                    document = Helpers.CodeFixVerifier.ApplyFix(document, actions.ElementAt((int)codeFixIndex));
+                    document = CodeFixVerifier.ApplyFix(document, actions.ElementAt((int)codeFixIndex));
                     break;
                 }
 
-                document = Helpers.CodeFixVerifier.ApplyFix(document, actions.ElementAt(0));
-                analyzerDiagnostics = Helpers.DiagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
+                document = CodeFixVerifier.ApplyFix(document, actions.ElementAt(0));
+                analyzerDiagnostics = DiagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
 
-                var newCompilerDiagnostics = Helpers.CodeFixVerifier.GetNewDiagnostics(compilerDiagnostics, Helpers.CodeFixVerifier.GetCompilerDiagnostics(document));
+                var newCompilerDiagnostics = CodeFixVerifier.GetNewDiagnostics(compilerDiagnostics, CodeFixVerifier.GetCompilerDiagnostics(document));
 
                 //check if applying the code fix introduced any new compiler diagnostics
                 if (!allowNewCompilerDiagnostics && newCompilerDiagnostics.Any())
                 {
                     // Format and get the compiler diagnostics again so that the locations make sense in the output
                     document = document.WithSyntaxRoot(Formatter.Format(document.GetSyntaxRootAsync().Result, Formatter.Annotation, document.Project.Solution.Workspace));
-                    newCompilerDiagnostics = Helpers.CodeFixVerifier.GetNewDiagnostics(compilerDiagnostics, Helpers.CodeFixVerifier.GetCompilerDiagnostics(document));
+                    newCompilerDiagnostics = CodeFixVerifier.GetNewDiagnostics(compilerDiagnostics, CodeFixVerifier.GetCompilerDiagnostics(document));
 
                     Assert.True(false,
                         string.Format("Fix introduced new compiler diagnostics:\r\n{0}\r\n\r\nNew document:\r\n{1}\r\n",
@@ -115,7 +115,7 @@ namespace RpgGenerator.Test.Verifiers
             }
 
             //after applying all of the code fixes, compare the resulting string to the inputted one
-            var actual = Helpers.CodeFixVerifier.GetStringFromDocument(document);
+            var actual = CodeFixVerifier.GetStringFromDocument(document);
             Assert.Equal(newSource, actual);
         }
     }

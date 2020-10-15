@@ -24,4 +24,8 @@ namespace RpgGenerator.Test.DataSource.PassiveDecorationUnitTests.Basic.Source
 		{
 		}
 	}
+
+	public interface IBattleEvent
+	{
+	}
 }

@@ -17,7 +17,7 @@ namespace RpgGenerator.Generator.PassiveDecoration.Semantics
 		public static FinalAttributeSemantics[] FromSyntax(PassiveDeclarationSyntax syntax)
 		{
 			return syntax.Parameters
-				.Select(x => new FinalAttributeSemantics("",
+				.Select(x => new FinalAttributeSemantics(x.TypeName.Name,
 					FinalAttributeMemberSemantics.FromSyntax(x)))
 				.ToArray();
 		}

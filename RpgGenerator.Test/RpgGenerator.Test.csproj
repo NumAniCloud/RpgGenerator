@@ -16,6 +16,6 @@
     <ProjectReference Include="..\RpgGenerator.Generator\RpgGenerator.Generator.csproj" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties datasource_4rpggeneratorunittests_4basic_4diagnostic_4result_1json__JsonSchema="..\..\..\result-schema.json" DataSource_4RpgGeneratorUnitTests_4LowercaseLetters_4Diagnostic_4Results_1json__JSONSchema="result-schama-v2" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties datasource_4passivedecorationunittests_4basic_4diagnostic_4result_1json__JsonSchema="..\..\..\result-schema.json" datasource_4rpggeneratorunittests_4basic_4diagnostic_4result_1json__JsonSchema="..\..\..\result-schema.json" DataSource_4RpgGeneratorUnitTests_4LowercaseLetters_4Diagnostic_4Results_1json__JSONSchema="result-schama-v2" /></VisualStudio></ProjectExtensions>
 
 </Project>

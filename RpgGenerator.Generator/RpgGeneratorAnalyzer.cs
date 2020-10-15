@@ -1,7 +1,8 @@
 ﻿using System.Collections.Immutable;
-using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
+using RpgGenerator.Generator.PassiveDecoration;
+using RpgGenerator.Generator.PhaseSystem;
 using RpgGenerator.Generator.Utilities;
 
 namespace RpgGenerator.Generator
@@ -11,14 +12,12 @@ namespace RpgGenerator.Generator
 	{
 		public const string DiagnosticId = "RpgGenerator";
 
-		private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.AnalyzerTitle), Resources.ResourceManager, typeof(Resources));
-		private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.AnalyzerMessageFormat), Resources.ResourceManager, typeof(Resources));
-		private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.AnalyzerDescription), Resources.ResourceManager, typeof(Resources));
-		private const string Category = "Implementation";
-
-		private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Info, isEnabledByDefault: true, description: Description);
-
-		public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
+		public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
+			=> ImmutableArray.CreateRange(new[]
+			{
+				PhaseSystemGenerator.Rule,
+				PassiveDecorationGenerator.Rule,
+			});
 
 		public override void Initialize(AnalysisContext context)
 		{
@@ -29,15 +28,23 @@ namespace RpgGenerator.Generator
 
 		private static void AnalyzeSymbol(SymbolAnalysisContext context)
 		{
-			var namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
-
-			var attrs = namedTypeSymbol.GetAttributes()
-				.Select(x => x.AttributeClass.Name)
-				.ToArray();
-
+			var namedTypeSymbol = (INamedTypeSymbol)context.Symbol; 
+			
 			if (namedTypeSymbol.HasAttribute("PhasesAttribute"))
 			{
-				var diagnostic = Diagnostic.Create(Rule, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
+				var diagnostic = Diagnostic.Create(
+					PhaseSystemGenerator.Rule,
+					namedTypeSymbol.Locations[0],
+					namedTypeSymbol.Name);
+				context.ReportDiagnostic(diagnostic);
+			}
+
+			if (namedTypeSymbol.HasAttribute("PassiveDecorationAttribute"))
+			{
+				var diagnostic = Diagnostic.Create(
+					PassiveDecorationGenerator.Rule,
+					namedTypeSymbol.Locations[0],
+					namedTypeSymbol.Name);
 				context.ReportDiagnostic(diagnostic);
 			}
 		}
