@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
-using RpgGenerator.Sandbox.Sample.BattleEvent;
 
 namespace RpgGenerator.Sandbox.Sample.Passive.User
 {
 	class Battler : IPassiveDecorationProvider
 	{
+		public string Name { get; }
 		public ActorAbility Ability { get; }
+		public FinalActorAbility FinalActorAbility { get; }
 		public List<PassiveDecoration> Passives { get; } = new List<PassiveDecoration>();
 
-		public Battler(ActorAbility ability)
+		public Battler(string name, ActorAbility ability)
 		{
+			Name = name;
 			Ability = ability;
+			FinalActorAbility = new FinalActorAbility(ability, this);
 		}
 
 		public IEnumerable<PassiveDecoration> GetPassiveDecorations()

@@ -6,23 +6,24 @@ namespace RpgGenerator.Sandbox.Sample.Passive.User
 {
 	class RagePassiveEffect : PassiveDecoration
 	{
-		private readonly RagePassiveEffectDataStore _dataStore;
+		private int _current = 0;
+		public int Diff { get; set; }
 
-		public RagePassiveEffect(RagePassiveEffectDataStore dataStore)
+		public RagePassiveEffect(int diff)
 		{
-			_dataStore = dataStore;
+			Diff = diff;
 		}
 
 		public override Task AfterEventAsync(AttackBattleEvent @event)
 		{
-			Console.WriteLine($"攻撃を受けて怒った！ 攻撃＋{_dataStore.Diff}");
-			_dataStore.Current += _dataStore.Diff;
+			Console.WriteLine($"{@event.Target.Name} は攻撃を受けて怒っている。 攻撃＋{Diff}");
+			_current += Diff;
 			return Task.CompletedTask;
 		}
 
 		public override int ModifyAttack(int source)
 		{
-			return source + _dataStore.Current;
+			return source + _current;
 		}
 	}
 }
