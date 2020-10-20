@@ -7,19 +7,18 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
 	class BattleEventHandler
 	{
-		private readonly BattleContext _context;
-		private readonly PassiveProcessHookHandler _passiveHook = new PassiveProcessHookHandler();
+		private readonly PassiveProcessHookHandler _passiveHook;
 
-		public BattleEventHandler(BattleContext context)
+		public BattleEventHandler(PassiveProcessHookHandler passiveHook)
 		{
-			_context = context;
+			_passiveHook = passiveHook;
 		}
 
 		public async Task HandleAsync(IBattleEvent @event)
 		{
-			await _passiveHook.BeforeEventAsync(@event, _context);
+			await _passiveHook.BeforeEventAsync(@event);
 			await @event.RunAsync(this);
-			await _passiveHook.AfterEventAsync(@event, _context);
+			await _passiveHook.AfterEventAsync(@event);
 		}
 	}
 }

@@ -8,14 +8,21 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
 	class PassiveProcessHookHandler
 	{
-		public Task BeforeEventAsync(IBattleEvent @event, BattleContext context)
+		private readonly BattleContext _context;
+
+		public PassiveProcessHookHandler(BattleContext context)
 		{
-			return RunAsync(@event.PassiveProcessSubject, p => SelectLeadingTask(p, @event, context));
+			_context = context;
 		}
 
-		public Task AfterEventAsync(IBattleEvent @event, BattleContext context)
+		public Task BeforeEventAsync(IBattleEvent @event)
 		{
-			return RunAsync(@event.PassiveProcessSubject, p => SelectFollowingTask(p, @event, context));
+			return RunAsync(@event.PassiveProcessSubject, p => SelectLeadingTask(p, @event));
+		}
+
+		public Task AfterEventAsync(IBattleEvent @event)
+		{
+			return RunAsync(@event.PassiveProcessSubject, p => SelectFollowingTask(p, @event));
 		}
 
 		private async Task RunAsync(IPassiveProcessProvider provider, Func<PassiveProcess, Task> selector)
@@ -26,17 +33,17 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 			}
 		}
 
-		private Task SelectLeadingTask(PassiveProcess passive, IBattleEvent @event, BattleContext context)
+		private Task SelectLeadingTask(PassiveProcess passive, IBattleEvent @event)
 			=> @event switch
 			{
-				DamageEvent ev0 => passive.BeforeEventAsync(ev0, context),
+				DamageEvent ev0 => passive.BeforeEventAsync(ev0, _context),
 				_ => Task.CompletedTask
 			};
 
-		private Task SelectFollowingTask(PassiveProcess passive, IBattleEvent @event, BattleContext context)
+		private Task SelectFollowingTask(PassiveProcess passive, IBattleEvent @event)
 			=> @event switch
 			{
-				DamageEvent ev0 => passive.AfterEventAsync(ev0, context),
+				DamageEvent ev0 => passive.AfterEventAsync(ev0, _context),
 				_ => Task.CompletedTask,
 			};
 	}
