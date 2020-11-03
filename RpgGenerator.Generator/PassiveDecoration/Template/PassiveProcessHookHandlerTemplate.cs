@@ -55,59 +55,67 @@ namespace RpgGenerator.Generator.PassiveDecoration.Template
             
             #line 15 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
 
-	var battleEvent = "IBattleEvent";
+	var accessibility = Root.SourceType.GetAccessibilityKeyword();
 	var domain = Root.DomainContextName;
 	var passiveType = Root.Decorator.DecorationName;
-	var accessibility = Root.SourceType.GetAccessibilityKeyword();
+	var battleEvent = $"IDomainEvent<{passiveType}>";
+	var providerType = $"IEnumerable<{passiveType}>";
 
             
             #line default
             #line hidden
             this.Write("namespace ");
             
-            #line 21 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 22 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Root.SourceType.FullNamespace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n\t");
             
-            #line 23 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 24 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(accessibility));
             
             #line default
             #line hidden
             this.Write(" sealed class ");
             
-            #line 23 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 24 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(passiveType));
             
             #line default
             #line hidden
-            this.Write("HookHandler\r\n\t{\r\n\t\tprivate readonly ");
+            this.Write("HookHandler : IPassiveProcessHookHandler<");
             
-            #line 25 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 24 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(passiveType));
+            
+            #line default
+            #line hidden
+            this.Write(">\r\n\t{\r\n\t\tprivate readonly ");
+            
+            #line 26 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(domain));
             
             #line default
             #line hidden
             this.Write(" _domain;\r\n\r\n\t\tpublic ");
             
-            #line 27 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 28 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(passiveType));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 27 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 28 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(domain));
             
             #line default
             #line hidden
             this.Write(" domain)\r\n\t\t{\r\n\t\t\t_domain = domain;\r\n\t\t}\r\n\r\n\t\tpublic Task BeforeEventAsync(");
             
-            #line 32 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 33 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(battleEvent));
             
             #line default
@@ -115,7 +123,7 @@ namespace RpgGenerator.Generator.PassiveDecoration.Template
             this.Write(" @event)\r\n\t\t\t=> RunAsync(@event.PassiveProcessSubject, p => SelectLeadingTask(p, " +
                     "@event));\r\n\t\t\r\n\t\tpublic Task AfterEventAsync(");
             
-            #line 35 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 36 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(battleEvent));
             
             #line default
@@ -123,138 +131,137 @@ namespace RpgGenerator.Generator.PassiveDecoration.Template
             this.Write(" @event)\r\n\t\t\t=> RunAsync(@event.PassiveProcessSubject, p => SelectFollowingTask(p" +
                     ", @event));\r\n\r\n\t\tprivate async Task RunAsync(");
             
-            #line 38 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Root.ProviderName));
+            #line 39 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(providerType));
             
             #line default
             #line hidden
             this.Write(" provider, Func<");
             
-            #line 38 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 39 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(passiveType));
             
             #line default
             #line hidden
-            this.Write(", Task> selector)\r\n\t\t{\r\n\t\t\tforeach (var passiveEffect in provider.GetPassiveDecor" +
-                    "ations())\r\n\t\t\t{\r\n\t\t\t\tawait selector(passiveEffect);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\tprivate Task" +
-                    " SelectLeadingTask(");
+            this.Write(", Task> selector)\r\n\t\t{\r\n\t\t\tforeach (var passiveEffect in provider)\r\n\t\t\t{\r\n\t\t\t\tawa" +
+                    "it selector(passiveEffect);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\tprivate Task SelectLeadingTask(");
             
-            #line 46 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 47 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(passiveType));
             
             #line default
             #line hidden
             this.Write(" passive, ");
             
-            #line 46 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 47 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(battleEvent));
             
             #line default
             #line hidden
             this.Write(" @event)\r\n\t\t\t=> @event switch\r\n\t\t\t{\r\n");
             
-            #line 49 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 50 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
 	var i = 0; 
             
             #line default
             #line hidden
             
-            #line 50 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 51 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
 	foreach(var hook in Root.Decorator.Hooks) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 51 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 52 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(hook.EventTypeName.Name));
             
             #line default
             #line hidden
             this.Write(" ev");
             
-            #line 51 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 52 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(i));
             
             #line default
             #line hidden
             this.Write(" => passive.BeforeEventAsync(ev");
             
-            #line 51 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 52 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(i));
             
             #line default
             #line hidden
             this.Write(", _domain),\r\n");
             
-            #line 52 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 53 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
 	i++; 
             
             #line default
             #line hidden
             
-            #line 53 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 54 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
 	} 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t_ => Task.CompletedTask,\r\n\t\t\t};\r\n\r\n\t\tprivate Task SelectFollowingTask(");
             
-            #line 57 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 58 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(passiveType));
             
             #line default
             #line hidden
             this.Write(" passive, ");
             
-            #line 57 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 58 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(battleEvent));
             
             #line default
             #line hidden
             this.Write(" @event)\r\n\t\t\t=> @event switch\r\n\t\t\t{\r\n");
             
-            #line 60 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 61 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
 	var j = 0; 
             
             #line default
             #line hidden
             
-            #line 61 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 62 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
 	foreach(var hook in Root.Decorator.Hooks) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 62 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 63 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(hook.EventTypeName.Name));
             
             #line default
             #line hidden
             this.Write(" ev");
             
-            #line 62 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 63 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(j));
             
             #line default
             #line hidden
             this.Write(" => passive.AfterEventAsync(ev");
             
-            #line 62 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 63 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(j));
             
             #line default
             #line hidden
             this.Write(", _domain),\r\n");
             
-            #line 63 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 64 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
 	j++; 
             
             #line default
             #line hidden
             
-            #line 64 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
+            #line 65 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt"
 	} 
             
             #line default

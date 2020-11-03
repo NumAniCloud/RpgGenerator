@@ -13,14 +13,15 @@ using <#= import #>;
 <#	} #>
 
 <#
-	var battleEvent = "IBattleEvent";
+	var accessibility = Root.SourceType.GetAccessibilityKeyword();
 	var domain = Root.DomainContextName;
 	var passiveType = Root.Decorator.DecorationName;
-	var accessibility = Root.SourceType.GetAccessibilityKeyword();
+	var battleEvent = $"IDomainEvent<{passiveType}>";
+	var providerType = $"IEnumerable<{passiveType}>";
 #>
 namespace <#= Root.SourceType.FullNamespace #>
 {
-	<#= accessibility #> sealed class <#= passiveType #>HookHandler
+	<#= accessibility #> sealed class <#= passiveType #>HookHandler : IPassiveProcessHookHandler<<#= passiveType #>>
 	{
 		private readonly <#= domain #> _domain;
 
@@ -35,9 +36,9 @@ namespace <#= Root.SourceType.FullNamespace #>
 		public Task AfterEventAsync(<#= battleEvent #> @event)
 			=> RunAsync(@event.PassiveProcessSubject, p => SelectFollowingTask(p, @event));
 
-		private async Task RunAsync(<#= Root.ProviderName #> provider, Func<<#= passiveType #>, Task> selector)
+		private async Task RunAsync(<#= providerType #> provider, Func<<#= passiveType #>, Task> selector)
 		{
-			foreach (var passiveEffect in provider.GetPassiveDecorations())
+			foreach (var passiveEffect in provider)
 			{
 				await selector(passiveEffect);
 			}

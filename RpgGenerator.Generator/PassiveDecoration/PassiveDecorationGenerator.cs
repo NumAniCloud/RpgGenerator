@@ -42,11 +42,11 @@ namespace RpgGenerator.Generator.PassiveDecoration
 
 			var syntax = await PassiveDeclarationSyntax.FromParseAsync(ids, document, ct);
 			var semantics = SemanticsRoot.FromSyntax(syntax);
-			var template = new PassiveDecorationTemplate(semantics);
+			var template = new PassiveProcessTemplate(semantics);
 			return ApplyGeneratedCode(document, template);
 		}
 
-		private static Solution ApplyGeneratedCode(Document document, PassiveDecorationTemplate template)
+		private static Solution ApplyGeneratedCode(Document document, PassiveProcessTemplate template)
 		{
 			var code = template.TransformText();
 

@@ -5,16 +5,16 @@ using System.Text;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 {
-	class Battler : IEnumerable<PassiveProcess>
+	class Battler : IEnumerable<PassiveProcess<BattleContext>>
 	{
-		private List<PassiveProcess> _passives = new List<PassiveProcess>();
+		private List<PassiveProcess<BattleContext>> _passives = new List<PassiveProcess<BattleContext>>();
 
-		public IEnumerator<PassiveProcess> GetEnumerator()
+		public IEnumerator<PassiveProcess<BattleContext>> GetEnumerator()
 		{
-			return ((IEnumerable<PassiveProcess>)_passives).GetEnumerator();
+			return ((IEnumerable<PassiveProcess<BattleContext>>)_passives).GetEnumerator();
 		}
 
-		public IEnumerable<PassiveProcess> GetPassiveProcesses()
+		public IEnumerable<PassiveProcess<BattleContext>> GetPassiveProcesses()
 		{
 			return _passives;
 		}

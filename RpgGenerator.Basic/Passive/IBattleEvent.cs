@@ -2,8 +2,8 @@
 
 namespace RpgGenerator.Basic
 {
-	public interface IBattleEvent
+	public interface IBattleEvent<TPassive>
 	{
-		Task RunAsync(IBattleEventHandler handler);
+		Task RunAsync(BattleEventHandler<TPassive> handler);
 	}
 }

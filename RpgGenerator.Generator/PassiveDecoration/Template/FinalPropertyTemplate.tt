@@ -17,6 +17,7 @@ using <#= import #>;
 
 <#
 	var accessibility = Root.SourceType.GetAccessibilityKeyword();
+	var passiveType = Root.DecorationName;
 #>
 namespace <#= Root.SourceType.FullNamespace #>
 {
@@ -25,9 +26,9 @@ namespace <#= Root.SourceType.FullNamespace #>
 	<#= accessibility #> sealed class Final<#= attrName #>
 	{
 		private readonly <#= attrName #> _baseAttribute;
-		private readonly <#= Root.ProviderName #> _provider;
+		private readonly IEnumerable<<#= passiveType #>> _provider;
 
-		public Final<#= attrName #>(<#= attrName #> baseAttribute, <#= Root.ProviderName #> provider)
+		public Final<#= attrName #>(<#= attrName #> baseAttribute, IEnumerable<<#= passiveType #>> provider)
 		{
 			_baseAttribute = baseAttribute;
 			_provider = provider;
@@ -38,10 +39,9 @@ namespace <#= Root.SourceType.FullNamespace #>
 		public <#= member.TypeName #> <#= name #> => Aggregate(_baseAttribute.<#= name #>, p => p.Modify<#= name #>);
 <#		} #>
 
-		private T Aggregate<T>(T source, Func<<#= Root.DecorationName #>, Func<T, T>> getModifier)
+		private T Aggregate<T>(T source, Func<<#= passiveType #>, Func<T, T>> getModifier)
 		{
-			return _provider.GetPassiveDecorations()
-				.Aggregate(source, (arg1, effect) => getModifier.Invoke(effect).Invoke(arg1));
+			return _provider.Aggregate(source, (arg1, effect) => getModifier.Invoke(effect).Invoke(arg1));
 		}
 	}
 <#	} #>

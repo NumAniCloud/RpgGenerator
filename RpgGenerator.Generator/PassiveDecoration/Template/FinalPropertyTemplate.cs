@@ -57,138 +57,138 @@ namespace RpgGenerator.Generator.PassiveDecoration.Template
             #line 18 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
 
 	var accessibility = Root.SourceType.GetAccessibilityKeyword();
+	var passiveType = Root.DecorationName;
 
             
             #line default
             #line hidden
             this.Write("namespace ");
             
-            #line 21 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 22 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Root.SourceType.FullNamespace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n");
             
-            #line 23 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 24 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
 	foreach(var attribute in Root.FinalAttribute) {  
             
             #line default
             #line hidden
             
-            #line 24 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 25 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
 		var attrName = attribute.AttributeTypeName.Name; 
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 25 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 26 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(accessibility));
             
             #line default
             #line hidden
             this.Write(" sealed class Final");
             
-            #line 25 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 26 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attrName));
             
             #line default
             #line hidden
             this.Write("\r\n\t{\r\n\t\tprivate readonly ");
             
-            #line 27 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 28 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attrName));
             
             #line default
             #line hidden
-            this.Write(" _baseAttribute;\r\n\t\tprivate readonly ");
+            this.Write(" _baseAttribute;\r\n\t\tprivate readonly IEnumerable<");
             
-            #line 28 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Root.ProviderName));
+            #line 29 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(passiveType));
             
             #line default
             #line hidden
-            this.Write(" _provider;\r\n\r\n\t\tpublic Final");
+            this.Write("> _provider;\r\n\r\n\t\tpublic Final");
             
-            #line 30 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 31 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attrName));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 30 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 31 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attrName));
             
             #line default
             #line hidden
-            this.Write(" baseAttribute, ");
+            this.Write(" baseAttribute, IEnumerable<");
             
-            #line 30 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Root.ProviderName));
+            #line 31 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(passiveType));
             
             #line default
             #line hidden
-            this.Write(" provider)\r\n\t\t{\r\n\t\t\t_baseAttribute = baseAttribute;\r\n\t\t\t_provider = provider;\r\n\t\t" +
-                    "}\r\n\r\n");
+            this.Write("> provider)\r\n\t\t{\r\n\t\t\t_baseAttribute = baseAttribute;\r\n\t\t\t_provider = provider;\r\n\t" +
+                    "\t}\r\n\r\n");
             
-            #line 36 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 37 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
 		foreach(var member in attribute.Members) { 
             
             #line default
             #line hidden
             
-            #line 37 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 38 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
 		var name = member.PropertyName; 
             
             #line default
             #line hidden
             this.Write("\t\tpublic ");
             
-            #line 38 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 39 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(member.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 38 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 39 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(name));
             
             #line default
             #line hidden
             this.Write(" => Aggregate(_baseAttribute.");
             
-            #line 38 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 39 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(name));
             
             #line default
             #line hidden
             this.Write(", p => p.Modify");
             
-            #line 38 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 39 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 39 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            #line 40 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
 		} 
             
             #line default
             #line hidden
             this.Write("\r\n\t\tprivate T Aggregate<T>(T source, Func<");
             
-            #line 41 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Root.DecorationName));
+            #line 42 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(passiveType));
             
             #line default
             #line hidden
-            this.Write(", Func<T, T>> getModifier)\r\n\t\t{\r\n\t\t\treturn _provider.GetPassiveDecorations()\r\n\t\t\t" +
-                    "\t.Aggregate(source, (arg1, effect) => getModifier.Invoke(effect).Invoke(arg1));\r" +
-                    "\n\t\t}\r\n\t}\r\n");
+            this.Write(", Func<T, T>> getModifier)\r\n\t\t{\r\n\t\t\treturn _provider.Aggregate(source, (arg1, eff" +
+                    "ect) => getModifier.Invoke(effect).Invoke(arg1));\r\n\t\t}\r\n\t}\r\n");
             
             #line 47 "D:\Naohiro\Documents\Repos2\Tools\RpgGenerator\RpgGenerator.Generator\PassiveDecoration\Template\FinalPropertyTemplate.tt"
 	} 

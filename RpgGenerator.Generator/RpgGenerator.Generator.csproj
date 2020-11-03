@@ -41,16 +41,6 @@
 	  <AutoGen>True</AutoGen>
 	  <DependentUpon>FinalPropertyTemplate.tt</DependentUpon>
 	</Compile>
-	<Compile Update="PassiveDecoration\Template\IBattleEventTemplate.cs">
-	  <DesignTime>True</DesignTime>
-	  <AutoGen>True</AutoGen>
-	  <DependentUpon>IBattleEventTemplate.tt</DependentUpon>
-	</Compile>
-	<Compile Update="PassiveDecoration\Template\PassiveDecorationTemplate.cs">
-	  <DesignTime>True</DesignTime>
-	  <AutoGen>True</AutoGen>
-	  <DependentUpon>PassiveDecorationTemplate.tt</DependentUpon>
-	</Compile>
 	<Compile Update="PassiveDecoration\Template\PassiveProcessTemplate.cs">
 	  <DesignTime>True</DesignTime>
 	  <AutoGen>True</AutoGen>
@@ -73,11 +63,6 @@
   <ItemGroup>
 	<None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="true" PackagePath="" />
 	<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-	<None Include="PassiveDecoration\Template\PassiveDecorationTemplate.cs">
-	  <DesignTime>True</DesignTime>
-	  <AutoGen>True</AutoGen>
-	  <DependentUpon>PassiveDecorationTemplate.tt</DependentUpon>
-	</None>
   </ItemGroup>
 
   <ItemGroup>
@@ -88,14 +73,6 @@
     <None Update="PassiveDecoration\Template\FinalPropertyTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>FinalPropertyTemplate.cs</LastGenOutput>
-    </None>
-    <None Update="PassiveDecoration\Template\IBattleEventTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>IBattleEventTemplate.cs</LastGenOutput>
-    </None>
-    <None Update="PassiveDecoration\Template\PassiveDecorationTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>PassiveDecorationTemplate.cs</LastGenOutput>
     </None>
     <None Update="PassiveDecoration\Template\PassiveProcessTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
