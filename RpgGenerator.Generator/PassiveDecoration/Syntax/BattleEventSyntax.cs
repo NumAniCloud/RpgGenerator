@@ -17,7 +17,7 @@ namespace RpgGenerator.Generator.PassiveDecoration.Syntax
 			TypeName = typeName;
 		}
 
-		public static async Task<BattleEventSyntax[]> FromParseAsync(ClassDeclarationSyntax declaration, Document document, CancellationToken ct)
+		public static async Task<BattleEventSyntax[]> FromParseAsync(ClassDeclarationSyntax declaration, string eventName, Document document, CancellationToken ct)
 		{
 			async Task<INamedTypeSymbol?> GetSymbol(FieldDeclarationSyntax field)
 			{
@@ -34,7 +34,7 @@ namespace RpgGenerator.Generator.PassiveDecoration.Syntax
 					ct);
 				return symbol
 					.OfType<INamedTypeSymbol>()
-					.FirstOrDefault(x => x.Interfaces.Any(y => y.Name == "IBattleEvent"));
+					.FirstOrDefault(x => x.Interfaces.Any(y => y.Name == eventName));
 			}
 
 			var symbolTasks = declaration.Members

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using RpgGenerator.Generator.PassiveDecoration.Syntax;
 using RpgGenerator.Generator.Utilities;
 
@@ -9,11 +10,20 @@ namespace RpgGenerator.Generator.PassiveDecoration.Semantics
 		public TypeName SourceType { get; }
 		public string ProviderName { get; }
 		public string DecorationName { get; }
+		public string DomainContextName { get; }
+		public string EventTypeName { get; }
 		public PassiveDecoratorSemantics Decorator { get; }
 		public PassiveHookHandlerSemantics Handler { get; }
 		public FinalAttributeSemantics[] FinalAttribute { get; }
 
-		public SemanticsRoot(PassiveDecoratorSemantics decorator, PassiveHookHandlerSemantics handler, FinalAttributeSemantics[] finalAttribute, TypeName sourceType, string providerName, string decorationName)
+		public SemanticsRoot(PassiveDecoratorSemantics decorator,
+			PassiveHookHandlerSemantics handler,
+			FinalAttributeSemantics[] finalAttribute,
+			TypeName sourceType,
+			string providerName,
+			string decorationName,
+			string domainContextName,
+			string eventTypeName)
 		{
 			Decorator = decorator;
 			Handler = handler;
@@ -21,6 +31,8 @@ namespace RpgGenerator.Generator.PassiveDecoration.Semantics
 			SourceType = sourceType;
 			ProviderName = providerName;
 			DecorationName = decorationName;
+			DomainContextName = domainContextName;
+			EventTypeName = eventTypeName;
 		}
 
 		public string[] GetImports()
@@ -32,6 +44,11 @@ namespace RpgGenerator.Generator.PassiveDecoration.Semantics
 				.ToArray();
 		}
 
+		public string GetEventHandlerName()
+		{
+			return Regex.Replace(EventTypeName, @"^I(?=[A-Z])", "");
+		}
+
 		public static SemanticsRoot FromSyntax(PassiveDeclarationSyntax syntax)
 		{
 			return new SemanticsRoot(
@@ -40,7 +57,9 @@ namespace RpgGenerator.Generator.PassiveDecoration.Semantics
 				FinalAttributeSemantics.FromSyntax(syntax),
 				syntax.SourceType,
 				$"I{syntax.DecorationName}Provider",
-				syntax.DecorationName);
+				syntax.DecorationName,
+				syntax.DomainContextName,
+				syntax.EventTypeName);
 		}
 	}
 }

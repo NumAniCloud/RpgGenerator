@@ -31,10 +31,35 @@
   </ItemGroup>
 
   <ItemGroup>
+	<Compile Update="PassiveDecoration\Template\DomainContextTemplate.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>DomainContextTemplate.tt</DependentUpon>
+	</Compile>
+	<Compile Update="PassiveDecoration\Template\FinalPropertyTemplate.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>FinalPropertyTemplate.tt</DependentUpon>
+	</Compile>
+	<Compile Update="PassiveDecoration\Template\IBattleEventTemplate.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>IBattleEventTemplate.tt</DependentUpon>
+	</Compile>
 	<Compile Update="PassiveDecoration\Template\PassiveDecorationTemplate.cs">
 	  <DesignTime>True</DesignTime>
 	  <AutoGen>True</AutoGen>
 	  <DependentUpon>PassiveDecorationTemplate.tt</DependentUpon>
+	</Compile>
+	<Compile Update="PassiveDecoration\Template\PassiveProcessTemplate.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>PassiveProcessTemplate.tt</DependentUpon>
+	</Compile>
+	<Compile Update="PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.cs">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>PassiveProcessHookHandlerTemplate.tt</DependentUpon>
 	</Compile>
 	<Compile Update="PhaseSystem\Template\PhaseTemplate.cs">
 	  <DesignTime>True</DesignTime>
@@ -56,9 +81,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="PassiveDecoration\Template\DomainContextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DomainContextTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="PassiveDecoration\Template\FinalPropertyTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>FinalPropertyTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="PassiveDecoration\Template\IBattleEventTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>IBattleEventTemplate.cs</LastGenOutput>
+    </None>
     <None Update="PassiveDecoration\Template\PassiveDecorationTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>PassiveDecorationTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="PassiveDecoration\Template\PassiveProcessTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PassiveProcessTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="PassiveDecoration\Template\PassiveProcessHookHandlerTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PassiveProcessHookHandlerTemplate.cs</LastGenOutput>
     </None>
     <None Update="PhaseSystem\Template\PhaseTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

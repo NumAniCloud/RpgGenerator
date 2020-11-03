@@ -16,12 +16,21 @@ namespace RpgGenerator.Generator.PassiveDecoration.Syntax
 		public BattleEventSyntax[] BattleEvents { get; }
 		public TokenAttributeSyntax[] Parameters { get; }
 		public TypeName SourceType { get; set; }
+		public string DomainContextName { get; }
+		public string EventTypeName { get; }
 
-		public PassiveDeclarationSyntax(string decorationName, BattleEventSyntax[] battleEvents, TokenAttributeSyntax[] parameters, TypeName sourceType)
+		public PassiveDeclarationSyntax(string decorationName,
+			BattleEventSyntax[] battleEvents,
+			TokenAttributeSyntax[] parameters,
+			TypeName sourceType,
+			string domainContextName,
+			string eventTypeName)
 		{
 			BattleEvents = battleEvents;
 			Parameters = parameters;
 			SourceType = sourceType;
+			DomainContextName = domainContextName;
+			EventTypeName = eventTypeName;
 			DecorationName = decorationName;
 		}
 
@@ -38,11 +47,26 @@ namespace RpgGenerator.Generator.PassiveDecoration.Syntax
 			var sourceType = symbol.OfType<INamedTypeSymbol>()
 				.FirstOrDefault(x => x.GetFullNameSpace() == ns);
 
+			var attr = sourceType.GetAttributes()
+				.First(x => x.AttributeClass.Name == "PassiveDecorationAttribute");
+
+			if (!(attr.ConstructorArguments[0].Value is string domainName))
+			{
+				throw new Exception();
+			}
+
+			if (!(attr.ConstructorArguments[1].Value is string eventName))
+			{
+				throw new Exception();
+			}
+
 			return new PassiveDeclarationSyntax(
 				Regex.Replace(declaration.Identifier.ValueText, "Settings$", ""),
-				await BattleEventSyntax.FromParseAsync(declaration, document, ct),
+				await BattleEventSyntax.FromParseAsync(declaration, eventName, document, ct),
 				await TokenAttributeSyntax.FromParseAsync(declaration, document, ct),
-				TypeName.FromSymbol(sourceType));
+				TypeName.FromSymbol(sourceType),
+				domainName,
+				eventName);
 		}
 	}
 }
