@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete;
 
@@ -6,10 +7,10 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
 	class FinalActorAbility
 	{
-		private readonly IPassiveProcessProvider _provider;
+		private readonly IEnumerable<PassiveProcess> _provider;
 		private readonly ActorAbility _baseProperty;
 
-		public FinalActorAbility(ActorAbility baseProperty, IPassiveProcessProvider provider)
+		public FinalActorAbility(ActorAbility baseProperty, IEnumerable<PassiveProcess> provider)
 		{
 			_baseProperty = baseProperty;
 			_provider = provider;
@@ -21,8 +22,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 		
 		private T Aggregate<T>(T source, Func<PassiveProcess, Func<T, T>> getModifier)
 		{
-			return _provider.GetPassiveProcesses()
-				.Aggregate(source, (arg1, effect) => getModifier.Invoke(effect).Invoke(arg1));
+			return _provider.Aggregate(source, (arg1, effect) => getModifier.Invoke(effect).Invoke(arg1));
 		}
 	}
 }

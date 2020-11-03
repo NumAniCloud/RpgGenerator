@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 {
-	class DamageEvent : IBattleEvent
+	class DamageEvent : IBattleEvent<PassiveProcess>
 	{
 		public Battler Target { get; }
 		public int Amount { get; }
@@ -16,8 +16,9 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 			Amount = amount;
 		}
 
-		public IPassiveProcessProvider PassiveProcessSubject => Target;
-		public async Task RunAsync(BattleEventHandler handler)
+		public IEnumerable<PassiveProcess> PassiveProcessSubject => Target;
+
+		public async Task RunAsync(BattleEventHandler<PassiveProcess> handler)
 		{
 			Console.WriteLine("Damaged");
 		}

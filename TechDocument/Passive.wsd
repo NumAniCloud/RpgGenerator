@@ -34,6 +34,8 @@ class PassiveProcess <<generated>>
 class ConcreatePassiveProcess <<user>>
 class Battler <<user>>
 class ConcreateBattleEvent <<user>>
+class Ability <<user>>
+class FinalAbility <<generated>>
 
 IDomainEvent_T o-- IEnumerable_T
 DomainEventHandler_T <-- IDomainEvent_T
@@ -41,11 +43,14 @@ DomainEventHandler_T o-- IPassiveProcessHookHandler_T
 IDomainEvent_T <-- DomainEventHandler_T
 PassiveProcessHookHandler o-- BattleContext
 IEnumerable_T <-- PassiveProcessHookHandler
-PassiveProcess <-- IEnumerable_T : T=PassiveProcess
+PassiveProcess <.. IEnumerable_T : T=PassiveProcess
 
 PassiveProcess <|-- ConcreatePassiveProcess
 IEnumerable_T <|-- Battler
 IDomainEvent_T <|-- ConcreateBattleEvent
 IPassiveProcessHookHandler_T <|-- PassiveProcessHookHandler
+
+FinalAbility o-- IEnumerable_T
+FinalAbility o-- Ability
 
 @enduml

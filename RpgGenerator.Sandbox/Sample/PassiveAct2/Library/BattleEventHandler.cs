@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
-	class BattleEventHandler
+	class BattleEventHandler<TPassive>
 	{
-		private readonly PassiveProcessHookHandler _passiveHook;
+		private readonly IPassiveProcessHookHandler<TPassive> _passiveHook;
 
-		public BattleEventHandler(PassiveProcessHookHandler passiveHook)
+		public BattleEventHandler(IPassiveProcessHookHandler<TPassive> passiveHook)
 		{
 			_passiveHook = passiveHook;
 		}
 
-		public async Task HandleAsync(IBattleEvent @event)
+		public async Task HandleAsync(IBattleEvent<TPassive> @event)
 		{
 			await _passiveHook.BeforeEventAsync(@event);
 			await @event.RunAsync(this);

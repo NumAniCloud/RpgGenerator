@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
-	interface IBattleEvent
+	interface IPassiveProcessHookHandler<TPassive>
 	{
-		IPassiveProcessProvider PassiveProcessSubject { get; }
-
-		Task RunAsync(BattleEventHandler handler);
+		Task BeforeEventAsync(IBattleEvent<TPassive> @event);
+		Task AfterEventAsync(IBattleEvent<TPassive> @event);
 	}
 }

@@ -15,41 +15,14 @@ class PassiveEffectSettings
 }
 ```
 
-## シンタックス
+## 概念
 
-### 生成元
-
-```bnf
-<passive-decorator> ::= <namespace>
-<namespace> ::= <namespace-declaration> "{" <class> "}"
-<class> ::= <class-declaration>"Settings" "{" <member-list> "}"
-<member-list> ::= [<parameter> | <event>]
-<parameter> ::= <parameter-type> <parameter-name>
-<event> ::= <event-type> <event-name>
-```
-
-### 生成先
-
-#### パッシブ修飾クラス
-
-```bnf
-<passive-decorator> ::= <namespace>
-<namespace> ::= <src.namespace-declaration> "{" <class> "}"
-<class> ::= <src.class-declaration> "{" <methods> "}"
-<methods> ::= [<hook> | <modifier>]
-<hook> ::= "public virtual Task BeforeEventAsync("<src.event-type>" @event) => Task.CompletedTask;" "public virtual Task AfterEventAsync("<src.event-type>" @event) => Task.CompletedTask;"
-<modifier> ::= "public virtual int Modify"<src.parameter-member-name>"("<src.parameter-member-type>" source) => source;"
-```
-
-#### パッシブフッククラス
-
-```bnf
-<passive-hook> ::= <namespace>
-<namespace> ::= <src.namespace-declaration> "{" <class> "}"
-<class> ::= <src.class-declaration> "{" <methods> "}"
-<methods> ::= <before> <after>
-<before> ::= "public async Task BeforeEventAsync(IPassiveDecorationProvider provider, IBattleEvent @event)" "{" <before-impl> "}"
-```
+* ドメインイベント / DomainEvent
+* ドメインコンテキスト / DomainContext
+* パッシブ処理 / PassiveProcess
+* 補正付きデータ型 / FinalData
+* ドメインイベントハンドラー / DomainEventHandler
+* パッシブ処理フックハンドラー / PassiveProcessHookHandler
 
 ## 生成範囲についての考察
 
@@ -82,5 +55,29 @@ Tの部分にバトル画面以外のためのパッシブ処理が入るので�
 ### まとめ
 
 以下のような実装にできそう。
+ちなみに、 `IEnumerable<T>` は標準ライブラリの型。
 
 ![](out/Passive/Semantics2.png)
+
+型引数 `T` は、そのクラス階層の属するドメインの特徴を記述するものとして考えられる。
+例えば、 `BattlePassive` なる名前のクラスは恐らく戦闘ドメインに属するだろう。
+
+library
+
+* IDomainEvent&lt;T>
+* DomainEventHandler&lt;T>
+* IPassiveProcessHookHandler&lt;T>
+
+user
+
+* BattleContext
+* Ability
+* ConcretePassiveProcess
+* ConcreteBattleEvent
+* Battler
+
+generated
+
+* **PassiveProcess**
+* Final**Ability**
+* **PassiveProcess**HookHandler
