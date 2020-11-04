@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
-	interface IPassiveProcessFunction<TPassive, in TDomain>
+	interface IPassiveProcessFunction<TDomain>
 	{
-		Task RunAsync(IBattleEvent<TPassive> @event, TDomain context);
+		Task RunAsync(IBattleEvent<TDomain> @event, TDomain context);
 	}
 
-	class PassiveProcessFunction<TPassive, TEvent, TDomain> : IPassiveProcessFunction<TPassive, TDomain>
-		where TEvent : IBattleEvent<TPassive>
+	sealed class PassiveProcessFunction<TEvent, TDomain> : IPassiveProcessFunction<TDomain>
+		where TEvent : IBattleEvent<TDomain>
 	{
 		private readonly Func<TEvent, TDomain, Task> _processFunc;
 
@@ -18,7 +18,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 			_processFunc = processFunc;
 		}
 
-		public async Task RunAsync(IBattleEvent<TPassive> @event, TDomain context)
+		public async Task RunAsync(IBattleEvent<TDomain> @event, TDomain context)
 		{
 			if (@event is TEvent ev)
 			{

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
-	class PassiveProcessHookHandler2<TDomain> : IPassiveProcessHookHandler<PassiveProcess<TDomain>>
+	class PassiveProcessHookHandler2<TDomain> : IPassiveProcessHookHandler<TDomain>
 	{
 		private readonly TDomain _context;
 
@@ -13,14 +13,14 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 			_context = context;
 		}
 
-		public Task BeforeEventAsync(IBattleEvent<PassiveProcess<TDomain>> @event)
+		public Task BeforeEventAsync(IBattleEvent<TDomain> @event)
 			=> RunAsync(@event, p => p.LeadingProcesses);
 
-		public Task AfterEventAsync(IBattleEvent<PassiveProcess<TDomain>> @event)
+		public Task AfterEventAsync(IBattleEvent<TDomain> @event)
 			=> RunAsync(@event, p => p.FollowingProcesses);
 
-		private async Task RunAsync(IBattleEvent<PassiveProcess<TDomain>> @event,
-			Func<PassiveProcess<TDomain>, IEnumerable<PassiveProcess<TDomain>.Proxy>> getFunctions)
+		private async Task RunAsync(IBattleEvent<TDomain> @event,
+			Func<PassiveProcess<TDomain>, IEnumerable<IPassiveProcessFunction<TDomain>>> getFunctions)
 		{
 			foreach (var passive in @event.PassiveProcessSubject)
 			{

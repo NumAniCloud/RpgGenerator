@@ -2,21 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using RpgGenerator.Sandbox.Sample.PassiveAct2.Gen;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 {
-	class Battler : IEnumerable<PassiveProcess<BattleContext>>
+	class Battler : IEnumerable<BattlePassive>
 	{
-		private List<PassiveProcess<BattleContext>> _passives = new List<PassiveProcess<BattleContext>>();
+		private List<BattlePassive> _passives = new List<BattlePassive>();
 
-		public IEnumerator<PassiveProcess<BattleContext>> GetEnumerator()
+		public IEnumerator<BattlePassive> GetEnumerator()
 		{
-			return ((IEnumerable<PassiveProcess<BattleContext>>)_passives).GetEnumerator();
-		}
-
-		public IEnumerable<PassiveProcess<BattleContext>> GetPassiveProcesses()
-		{
-			return _passives;
+			return ((IEnumerable<BattlePassive>)_passives).GetEnumerator();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()

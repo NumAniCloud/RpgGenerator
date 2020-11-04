@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
-	interface IPassiveProcessHookHandler<TPassive>
+	interface IPassiveProcessHookHandler<TDomain>
 	{
-		Task BeforeEventAsync(IBattleEvent<TPassive> @event);
-		Task AfterEventAsync(IBattleEvent<TPassive> @event);
+		Task BeforeEventAsync(IBattleEvent<TDomain> @event);
+		Task AfterEventAsync(IBattleEvent<TDomain> @event);
 	}
 }

@@ -155,3 +155,6 @@ class RagePassiveProcess : PassiveProcess
 `DomainEventHandler` から直接処理できないため、
 `PassiveProcessHookHandler` はまだ必要がある。
 `BattleContext` を型引数にするという手があるか。
+
+この観点では、攻撃力や防御力などプリミティブ型で表すような値も型として扱うべきだが、
+少しやりすぎかもしれない……
