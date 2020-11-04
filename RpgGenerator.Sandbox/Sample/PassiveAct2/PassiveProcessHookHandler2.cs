@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
@@ -14,20 +13,17 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 		}
 
 		public Task BeforeEventAsync(IBattleEvent<TDomain> @event)
-			=> RunAsync(@event, p => p.LeadingProcesses);
+			=> RunAsync(@event, p => p.RunLeadingProcessAsync(@event, _context));
 
 		public Task AfterEventAsync(IBattleEvent<TDomain> @event)
-			=> RunAsync(@event, p => p.FollowingProcesses);
+			=> RunAsync(@event, p => p.RunFollowingProcessAsync(@event, _context));
 
-		private async Task RunAsync(IBattleEvent<TDomain> @event,
-			Func<PassiveProcess<TDomain>, IEnumerable<IPassiveProcessFunction<TDomain>>> getFunctions)
+		private async Task RunAsync(IBattleEvent<TDomain> @event, 
+			Func<PassiveProperty<TDomain>, Task> runner)
 		{
-			foreach (var passive in @event.PassiveProcessSubject)
+			foreach (var property in @event.PassiveProcessSubject)
 			{
-				foreach (var process in getFunctions.Invoke(passive))
-				{
-					await process.RunAsync(@event, _context);
-				}
+				await runner.Invoke(property);
 			}
 		}
 	}

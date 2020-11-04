@@ -1,23 +1,32 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using RpgGenerator.Sandbox.Sample.PassiveAct2.Gen;
+using Passive = RpgGenerator.Sandbox.Sample.PassiveAct2.PassiveProperty<RpgGenerator.Sandbox.Sample.PassiveAct2.BattleContext>;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 {
-	class Battler : IEnumerable<BattlePassive>
+	class Battler : IEnumerable<Passive>
 	{
-		private List<BattlePassive> _passives = new List<BattlePassive>();
+		public ActorAbility Ability { get; }
+		public List<Passive> Passives { get; } = new List<Passive>();
 
-		public IEnumerator<BattlePassive> GetEnumerator()
+		public Battler(ActorAbility ability)
 		{
-			return ((IEnumerable<BattlePassive>)_passives).GetEnumerator();
+			Ability = ability;
+		}
+
+		public ActorAbility GetModifiedAbility()
+		{
+			return Passives.Modify(Ability);
+		}
+
+		public IEnumerator<Passive> GetEnumerator()
+		{
+			return ((IEnumerable<Passive>)Passives).GetEnumerator();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable)_passives).GetEnumerator();
+			return ((IEnumerable)Passives).GetEnumerator();
 		}
 	}
 }

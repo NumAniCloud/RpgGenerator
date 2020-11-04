@@ -7,7 +7,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
 	interface IBattleEvent<TDomain>
 	{
-		IEnumerable<PassiveProcess<TDomain>> PassiveProcessSubject { get; }
+		IEnumerable<PassiveProperty<TDomain>> PassiveProcessSubject { get; }
 
 		Task RunAsync(BattleEventHandler<TDomain> handler);
 	}
