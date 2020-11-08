@@ -19,7 +19,7 @@ namespace RpgGenerator.Sandbox
 			{
 				Passives =
 				{
-					new PassiveProperty<BattleContext>(new RagePassiveProcess()),
+					new PurePassiveProperty<BattleContext>(new RagePassiveProcess()),
 				},
 			};
 			var damage = new DamageEvent(battler, 10);

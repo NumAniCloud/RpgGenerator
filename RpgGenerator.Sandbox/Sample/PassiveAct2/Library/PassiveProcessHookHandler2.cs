@@ -19,7 +19,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 			=> RunAsync(@event, p => p.RunFollowingProcessAsync(@event, _context));
 
 		private async Task RunAsync(IBattleEvent<TDomain> @event, 
-			Func<PassiveProperty<TDomain>, Task> runner)
+			Func<PurePassiveProperty<TDomain>, Task> runner)
 		{
 			foreach (var property in @event.PassiveProcessSubject)
 			{

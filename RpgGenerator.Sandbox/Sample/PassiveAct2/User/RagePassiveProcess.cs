@@ -20,7 +20,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 		}
 
 		private async Task OnAttackedAsync(DamageEvent @event,
-			StatefulPassiveProperty<BattleContext, int> property,
+			StatefulPurePassiveProperty<BattleContext, int> property,
 			BattleContext context)
 		{
 			Console.WriteLine("Rage");
@@ -28,7 +28,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 		}
 
 		private ActorAbility ModifyAttack(ActorAbility ability,
-			StatefulPassiveProperty<BattleContext, int> self)
+			StatefulPurePassiveProperty<BattleContext, int> self)
 		{
 			return new ActorAbility()
 			{

@@ -15,7 +15,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 			Amount = amount;
 		}
 
-		public IEnumerable<PassiveProperty<BattleContext>> PassiveProcessSubject => Target;
+		public IEnumerable<PurePassiveProperty<BattleContext>> PassiveProcessSubject => Target;
 
 		public async Task RunAsync(BattleEventHandler<BattleContext> handler)
 		{

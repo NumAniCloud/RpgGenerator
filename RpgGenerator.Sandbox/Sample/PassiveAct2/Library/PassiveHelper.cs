@@ -11,7 +11,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 		}
 
 		public static TData Modify<TDomain, TData>(
-			this IEnumerable<PassiveProperty<TDomain>> passiveProperties,
+			this IEnumerable<PurePassiveProperty<TDomain>> passiveProperties,
 			TData source)
 		{
 			return passiveProperties.Aggregate(source, (data, property) => property.Modify(source));

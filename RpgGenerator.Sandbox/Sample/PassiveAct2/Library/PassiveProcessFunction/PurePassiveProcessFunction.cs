@@ -1,30 +1,31 @@
 ﻿using System;
 using System.Threading.Tasks;
+using RpgGenerator.Sandbox.Sample.PassiveAct2.Library;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
-	public delegate Task PassiveProcessHook<in TEvent, TDomain>(TEvent @event, PassiveProperty<TDomain> self, TDomain domain);
+	public delegate Task PassiveProcessHook<in TEvent, TDomain>(TEvent @event, IPassiveProperty<TDomain> self, TDomain domain);
 	public delegate Task PassiveProcessHook<in TEvent, TDomain, TDataStore>(TEvent @event,
-		StatefulPassiveProperty<TDomain, TDataStore> self,
+		StatefulPurePassiveProperty<TDomain, TDataStore> self,
 		TDomain domain);
 
 	public interface IPassiveProcessFunction<TDomain>
 	{
-		Task RunAsync(IBattleEvent<TDomain> @event, PassiveProperty<TDomain> self, TDomain context);
+		Task RunAsync(IBattleEvent<TDomain> @event, IPassiveProperty<TDomain> self, TDomain context);
 	}
 
-	public sealed class PassiveProcessFunction<TEvent, TDomain> : IPassiveProcessFunction<TDomain>
+	public sealed class PurePassiveProcessFunction<TEvent, TDomain> : IPassiveProcessFunction<TDomain>
 		where TEvent : IBattleEvent<TDomain>
 	{
 		private readonly PassiveProcessHook<TEvent, TDomain> _processFunc;
 
-		public PassiveProcessFunction(PassiveProcessHook<TEvent, TDomain> processFunc)
+		public PurePassiveProcessFunction(PassiveProcessHook<TEvent, TDomain> processFunc)
 		{
 			_processFunc = processFunc;
 		}
 
 		public async Task RunAsync(IBattleEvent<TDomain> @event,
-			PassiveProperty<TDomain> self,
+			IPassiveProperty<TDomain> self,
 			TDomain context)
 		{
 			if (@event is TEvent ev)
@@ -45,9 +46,9 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 			_processHook = processHook;
 		}
 
-		public async Task RunAsync(IBattleEvent<TDomain> @event, PassiveProperty<TDomain> self, TDomain context)
+		public async Task RunAsync(IBattleEvent<TDomain> @event, IPassiveProperty<TDomain> self, TDomain context)
 		{
-			if (@event is TEvent ev && self is StatefulPassiveProperty<TDomain, TDataStore> property)
+			if (@event is TEvent ev && self is StatefulPurePassiveProperty<TDomain, TDataStore> property)
 			{
 				await _processHook.Invoke(ev, property, context);
 			}
