@@ -1,6 +1,7 @@
 ﻿using System;
 using RpgGenerator.Sandbox.Sample.PassiveAct2;
 using RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete;
+using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProperty;
 
 namespace RpgGenerator.Sandbox
 {
@@ -19,7 +20,7 @@ namespace RpgGenerator.Sandbox
 			{
 				Passives =
 				{
-					new PurePassiveProperty<BattleContext>(new RagePassiveProcess()),
+					new StatefulPurePassiveProperty<BattleContext, int>(new RagePassiveProcess()),
 				},
 			};
 			var damage = new DamageEvent(battler, 10);

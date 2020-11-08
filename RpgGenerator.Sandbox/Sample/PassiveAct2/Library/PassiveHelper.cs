@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProperty;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
@@ -11,7 +12,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 		}
 
 		public static TData Modify<TDomain, TData>(
-			this IEnumerable<PurePassiveProperty<TDomain>> passiveProperties,
+			this IEnumerable<IPassiveProperty<TDomain>> passiveProperties,
 			TData source)
 		{
 			return passiveProperties.Aggregate(source, (data, property) => property.Modify(source));

@@ -1,4 +1,5 @@
 ﻿using RpgGenerator.Sandbox.Sample.PassiveAct2.Library;
+using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProcess;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Gen
 {

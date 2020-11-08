@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProperty;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
@@ -19,7 +20,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 			=> RunAsync(@event, p => p.RunFollowingProcessAsync(@event, _context));
 
 		private async Task RunAsync(IBattleEvent<TDomain> @event, 
-			Func<PurePassiveProperty<TDomain>, Task> runner)
+			Func<IPassiveProperty<TDomain>, Task> runner)
 		{
 			foreach (var property in @event.PassiveProcessSubject)
 			{

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using RpgGenerator.Sandbox.Sample.PassiveAct2.Gen;
-using RpgGenerator.Sandbox.Sample.PassiveAct2.Library;
+using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProperty;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 {
@@ -9,12 +9,12 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 	{
 		public override int InitialValue => 0;
 
-		protected override void RegisterFollowingFunctionsWithState(FuncAggregatorWithState aggregator)
+		protected override void RegisterFollowingFunctions(FuncAggregatorWithState aggregator)
 		{
 			aggregator.Register<DamageEvent>(OnAttackedAsync);
 		}
 
-		protected override void RegisterModifiersWithState(ModifierAggregatorWithState aggregator)
+		protected override void RegisterModifiers(ModifierAggregatorWithState aggregator)
 		{
 			aggregator.Register<ActorAbility>(ModifyAttack);
 		}

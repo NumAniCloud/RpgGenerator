@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Passive = RpgGenerator.Sandbox.Sample.PassiveAct2.PurePassiveProperty<RpgGenerator.Sandbox.Sample.PassiveAct2.BattleContext>;
+using Passive = RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProperty.IPassiveProperty<RpgGenerator.Sandbox.Sample.PassiveAct2.BattleContext>;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 {

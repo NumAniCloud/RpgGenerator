@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Library
+namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProperty
 {
 	public interface IPassiveProperty<TDomain>
 	{

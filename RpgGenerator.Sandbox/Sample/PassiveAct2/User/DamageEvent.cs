@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProperty;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 {
@@ -15,7 +16,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 			Amount = amount;
 		}
 
-		public IEnumerable<PurePassiveProperty<BattleContext>> PassiveProcessSubject => Target;
+		public IEnumerable<IPassiveProperty<BattleContext>> PassiveProcessSubject => Target;
 
 		public async Task RunAsync(BattleEventHandler<BattleContext> handler)
 		{
