@@ -199,3 +199,29 @@ PassiveProcess から派生する StatefulPassiveProcess を実装し、
 ここまでの設計は以下の通り。
 
 ![](out/Passive/Library.png)
+
+### Pure と Stateful の違い
+
+(Pure/Stateful)の区分が(Property,Process,Modifier,ProcessFunction)の区分と直交していて、
+このままではクラス数が掛け算で増えてしまう。
+Pure性とStateful性という性質を抽象化できないものか？
+
+Property について、
+
+* Pure:
+* Stateful: Pureの機能に加えて、データストアを持ち、初期値のロードも行う。
+
+Process について、
+
+* Pure: イベントの登録時にPurePropertyを使うもののみを受付、PureなModifierやFunctionを生成する。
+* Stateful: イベントの登録時にStatefulPropertyを使うもののみを受けつけ、StatefulなModifierやFunctionを生成する。
+
+Modifier について、
+
+* Pure: 
+* Stateful: Pureと比べると、データストアの型を余分にチェックする。
+
+Modifier について、
+
+* Pure: 
+* Stateful: Pureと比べると、データストアの型を余分にチェックする。

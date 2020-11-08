@@ -1,45 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveModifierFunction;
+using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProcess;
 using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProcessFunction;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Library
 {
-	public abstract class PurePassiveProcess<TDomain> : IPassiveProcess<TDomain>
+	public abstract class PurePassiveProcess<TDomain> : PassiveProcessBase<TDomain>
 	{
-		private IPassiveProcessFunction<TDomain>[]? _leadingFunctions;
-		private IPassiveProcessFunction<TDomain>[]? _followingFunctions;
-		private IPassiveModifierFunction<TDomain>[]? _modifiers;
-
-		public IEnumerable<IPassiveProcessFunction<TDomain>> LeadingProcesses => GetFunctions(ref _leadingFunctions, RegisterLeadingFunctions);
-		public IEnumerable<IPassiveProcessFunction<TDomain>> FollowingProcesses => GetFunctions(ref _followingFunctions, RegisterFollowingFunctions);
-		public IEnumerable<IPassiveModifierFunction<TDomain>> Modifiers
+		protected sealed override IPassiveProcessFunction<TDomain>[] LoadLeadingProcesses()
 		{
-			get
-			{
-				if (_modifiers is null)
-				{
-					var aggregator = new ModifierAggregator();
-					RegisterModifiers(aggregator);
-					_modifiers = aggregator.Modifiers.ToArray();
-				}
-
-				return _modifiers;
-			}
+			var aggregator = new FuncAggregator();
+			RegisterLeadingFunctions(aggregator);
+			return aggregator.Functions.ToArray();
 		}
 
-		private IEnumerable<IPassiveProcessFunction<TDomain>> GetFunctions(
-			ref IPassiveProcessFunction<TDomain>[]? functions,
-			Action<FuncAggregator> registration)
+		protected sealed override IPassiveProcessFunction<TDomain>[] LoadFollowingProcesses()
 		{
-			if (functions is null)
-			{
-				var aggregator = new FuncAggregator();
-				registration.Invoke(aggregator);
-				functions = aggregator.Functions.ToArray();
-			}
+			var aggregator = new FuncAggregator();
+			RegisterFollowingFunctions(aggregator);
+			return aggregator.Functions.ToArray();
+		}
 
-			return functions;
+		protected sealed override IPassiveModifierFunction<TDomain>[] LoadModifiers()
+		{
+			var aggregator = new ModifierAggregator();
+			RegisterModifiers(aggregator);
+			return aggregator.Modifiers.ToArray();
 		}
 
 		protected virtual void RegisterLeadingFunctions(FuncAggregator aggregator)

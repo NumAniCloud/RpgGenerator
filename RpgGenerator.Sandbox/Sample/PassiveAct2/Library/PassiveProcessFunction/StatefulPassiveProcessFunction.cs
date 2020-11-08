@@ -20,9 +20,12 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProcessFunction
 
 		public async Task RunAsync(IBattleEvent<TDomain> @event, IPassiveProperty<TDomain> self, TDomain context)
 		{
-			if (@event is TEvent ev && self is StatefulPurePassiveProperty<TDomain, TDataStore> property)
+			if (@event is TEvent ev)
 			{
-				await _processHook.Invoke(ev, property, context);
+				if (self is StatefulPurePassiveProperty<TDomain, TDataStore> property)
+				{
+					await _processHook.Invoke(ev, property, context);
+				}
 			}
 		}
 	}
