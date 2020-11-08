@@ -1,39 +1,38 @@
 ﻿using System;
 using System.Threading.Tasks;
 using RpgGenerator.Sandbox.Sample.PassiveAct2.Gen;
+using RpgGenerator.Sandbox.Sample.PassiveAct2.Library;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Concrete
 {
-	class RagePassiveProcess : BattlePassive
+	class RagePassiveProcess : BattlePassive<int>
 	{
-		public override void Populate(PassiveProperty<BattleContext> self)
-		{
-			self.DataStore = 0;
-		}
+		public override int InitialValue => 0;
 
-		protected override void RegisterFollowingFunctions(FuncAggregator aggregator)
+		protected override void RegisterFollowingFunctionsWithState(FuncAggregatorWithState aggregator)
 		{
 			aggregator.Register<DamageEvent>(OnAttackedAsync);
 		}
 
-		protected override void RegisterModifiers(ModifierAggregator aggregator)
+		protected override void RegisterModifiersWithState(ModifierAggregatorWithState aggregator)
 		{
 			aggregator.Register<ActorAbility>(ModifyAttack);
 		}
 
 		private async Task OnAttackedAsync(DamageEvent @event,
-			PassiveProperty<BattleContext> property,
+			StatefulPassiveProperty<BattleContext, int> property,
 			BattleContext context)
 		{
 			Console.WriteLine("Rage");
-			property.DataStore = property.GetData<int>() + 1;
+			property.DataStore = property.DataStore + 1;
 		}
 
-		private ActorAbility ModifyAttack(ActorAbility ability, PassiveProperty<BattleContext> self)
+		private ActorAbility ModifyAttack(ActorAbility ability,
+			StatefulPassiveProperty<BattleContext, int> self)
 		{
 			return new ActorAbility()
 			{
-				Attack = ability.Attack + self.GetData<int>(),
+				Attack = ability.Attack + self.DataStore,
 				Defence = ability.Defence
 			};
 		}

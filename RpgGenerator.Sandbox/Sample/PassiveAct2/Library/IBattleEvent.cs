@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
-	interface IBattleEvent<TDomain>
+	public interface IBattleEvent<TDomain>
 	{
 		IEnumerable<PassiveProperty<TDomain>> PassiveProcessSubject { get; }
 

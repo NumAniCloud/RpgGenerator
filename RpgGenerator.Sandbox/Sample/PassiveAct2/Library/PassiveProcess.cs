@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
-	abstract class PassiveProcess<TDomain>
+	public abstract class PassiveProcess<TDomain>
 	{
 		private IPassiveProcessFunction<TDomain>[]? _leadingFunctions;
 		private IPassiveProcessFunction<TDomain>[]? _followingFunctions;
@@ -38,10 +38,6 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 			}
 
 			return functions;
-		}
-
-		public virtual void Populate(PassiveProperty<TDomain> self)
-		{
 		}
 
 		protected virtual void RegisterLeadingFunctions(FuncAggregator aggregator)

@@ -2,7 +2,7 @@
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
-	class BattleEventHandler<TDomain>
+	public class BattleEventHandler<TDomain>
 	{
 		private readonly IPassiveProcessHookHandler<TDomain> _passiveHook;
 

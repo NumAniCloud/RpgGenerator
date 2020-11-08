@@ -189,3 +189,13 @@ PassiveProcessHookHandlerはPassivePropertyに対してイベントを発行す�
 PassivePropertyはPassiveProcessに対してメッセージを送るが、このとき自分自身を渡す。
 PassiveProcessはPassivePropertyに対して、
 Vanishを呼んだりコンポーネントにアクセスしたりできる。
+
+### 2020/11/08
+
+PassiveProcess から派生する StatefulPassiveProcess を実装し、
+データストアに型を与えられるようにした。
+これで、データストアの型を間違えて使っていれば、コンパイルエラーとなる。
+
+ここまでの設計は以下の通り。
+
+![](out/Passive/Library.png)

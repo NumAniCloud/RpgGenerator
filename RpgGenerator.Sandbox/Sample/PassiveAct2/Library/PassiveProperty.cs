@@ -1,29 +1,17 @@
-﻿using System;
+﻿using RpgGenerator.Sandbox.Sample.PassiveAct2.Library;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 {
-	sealed class PassiveProperty<TDomain>
+	public class PassiveProperty<TDomain>
 	{
 		private readonly PassiveProcess<TDomain> _passiveProcess;
-
-		public object? DataStore { get; set; }
 
 		public PassiveProperty(PassiveProcess<TDomain> passiveProcess)
 		{
 			_passiveProcess = passiveProcess;
-			_passiveProcess.Populate(this);
-		}
-
-		public T GetData<T>()
-		{
-			if (!(DataStore is T data))
-			{
-				throw new Exception();
-			}
-
-			return data;
 		}
 
 		public async Task RunLeadingProcessAsync(IBattleEvent<TDomain> @event, TDomain domain)
@@ -45,6 +33,17 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2
 		public TData Modify<TData>(TData source)
 		{
 			return _passiveProcess.Modifiers.Aggregate(source, (x, passive) => passive.Modify(x, this));
+		}
+	}
+
+	public class StatefulPassiveProperty<TDomain, TDataStore> : PassiveProperty<TDomain>
+	{
+		public TDataStore DataStore { get; set; }
+
+		public StatefulPassiveProperty(StatefulPassiveProcess<TDomain, TDataStore> process)
+			: base(process)
+		{
+			DataStore = process.InitialValue;
 		}
 	}
 }
