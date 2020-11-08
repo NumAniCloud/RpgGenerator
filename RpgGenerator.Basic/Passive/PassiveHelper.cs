@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProperty;
+using RpgGenerator.Basic.Passive.PassiveProperty;
 
-namespace RpgGenerator.Sandbox.Sample.PassiveAct2
+namespace RpgGenerator.Basic.Passive
 {
 	static class PassiveHelper
 	{

@@ -4,7 +4,7 @@ using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProcessFunction;
 
 namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProcess
 {
-	public abstract class StatefulPassiveProcess<TDomain, TDataStore> : PassiveProcessBase<TDomain>
+	public abstract class PassiveProcess<TDomain, TDataStore> : PassiveProcessBase<TDomain>
 	{
 		public abstract TDataStore InitialValue { get; }
 		
@@ -48,7 +48,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProcess
 			public void Register<TEvent>(PassiveProcessHook<TEvent, TDomain, TDataStore> processFunc)
 				where TEvent : IBattleEvent<TDomain>
 			{
-				Functions.Add(new StatefulPassiveProcessFunction<TEvent,TDomain, TDataStore>(processFunc));
+				Functions.Add(new PassiveProcessFunction<TEvent,TDomain, TDataStore>(processFunc));
 			}
 		}
 
@@ -58,7 +58,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProcess
 
 			public void Register<TData>(PassiveProcessModifier<TDomain, TData, TDataStore> modifier)
 			{
-				Modifiers.Add(new StatefulPassiveModifierFunction<TDomain, TData, TDataStore>(modifier));
+				Modifiers.Add(new PassiveModifierFunction<TDomain, TData, TDataStore>(modifier));
 			}
 		}
 	}

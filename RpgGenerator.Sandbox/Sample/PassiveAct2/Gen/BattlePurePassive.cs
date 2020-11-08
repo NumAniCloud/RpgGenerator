@@ -7,7 +7,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Gen
 	{
 	}
 
-	abstract class BattlePassive<TDataStore> : StatefulPassiveProcess<BattleContext, TDataStore>
+	abstract class BattlePassive<TDataStore> : PassiveProcess<BattleContext, TDataStore>
 	{
 	}
 }

@@ -1,16 +1,16 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProcess;
+using RpgGenerator.Basic.Passive.PassiveProcess;
 
-namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProperty
+namespace RpgGenerator.Basic.Passive.PassiveProperty
 {
-	public class StatefulPurePassiveProperty<TDomain, TDataStore> : IPassiveProperty<TDomain>
+	public class PassiveProperty<TDomain, TDataStore> : IPassiveProperty<TDomain>
 	{
-		private readonly StatefulPassiveProcess<TDomain, TDataStore> _process;
+		private readonly PassiveProcess<TDomain, TDataStore> _process;
 
 		public TDataStore DataStore { get; set; }
 
-		public StatefulPurePassiveProperty(StatefulPassiveProcess<TDomain, TDataStore> process)
+		public PassiveProperty(PassiveProcess<TDomain, TDataStore> process)
 		{
 			_process = process;
 			DataStore = process.InitialValue;

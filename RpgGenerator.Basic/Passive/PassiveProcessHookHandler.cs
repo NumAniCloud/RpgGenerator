@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveProperty;
+using RpgGenerator.Basic.Passive.PassiveProperty;
 
-namespace RpgGenerator.Sandbox.Sample.PassiveAct2
+namespace RpgGenerator.Basic.Passive
 {
-	class PassiveProcessHookHandler2<TDomain> : IPassiveProcessHookHandler<TDomain>
+	class PassiveProcessHookHandler<TDomain> : IPassiveProcessHookHandler<TDomain>
 	{
 		private readonly TDomain _context;
 
-		public PassiveProcessHookHandler2(TDomain context)
+		public PassiveProcessHookHandler(TDomain context)
 		{
 			_context = context;
 		}

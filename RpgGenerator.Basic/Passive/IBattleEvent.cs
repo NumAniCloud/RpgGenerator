@@ -1,9 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using RpgGenerator.Basic.Passive.PassiveProperty;
 
-namespace RpgGenerator.Basic
+namespace RpgGenerator.Basic.Passive
 {
-	public interface IBattleEvent<TPassive>
+	public interface IBattleEvent<TDomain>
 	{
-		Task RunAsync(BattleEventHandler<TPassive> handler);
+		IEnumerable<IPassiveProperty<TDomain>> PassiveProcessSubject { get; }
+
+		Task RunAsync(BattleEventHandler<TDomain> handler);
 	}
 }

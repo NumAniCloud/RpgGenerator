@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 
-namespace RpgGenerator.Basic
+namespace RpgGenerator.Basic.Passive
 {
-	public interface IPassiveProcessHookHandler<TPassive>
+	public interface IPassiveProcessHookHandler<TDomain>
 	{
-		Task BeforeEventAsync(IBattleEvent<TPassive> @event);
-		Task AfterEventAsync(IBattleEvent<TPassive> @event);
+		Task BeforeEventAsync(IBattleEvent<TDomain> @event);
+		Task AfterEventAsync(IBattleEvent<TDomain> @event);
 	}
 }

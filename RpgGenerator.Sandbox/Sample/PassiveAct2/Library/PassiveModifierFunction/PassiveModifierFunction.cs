@@ -4,13 +4,13 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveModifierFunctio
 {
 	
 	public delegate TData PassiveProcessModifier<TDomain, TData, TDataStore>(TData source,
-		StatefulPurePassiveProperty<TDomain, TDataStore> self);
+		PassiveProperty<TDomain, TDataStore> self);
 
-	public class StatefulPassiveModifierFunction<TDomain, TData, TDataStore> : IPassiveModifierFunction<TDomain>
+	public class PassiveModifierFunction<TDomain, TData, TDataStore> : IPassiveModifierFunction<TDomain>
 	{
 		private readonly PassiveProcessModifier<TDomain, TData, TDataStore> _selector;
 
-		public StatefulPassiveModifierFunction(PassiveProcessModifier<TDomain, TData, TDataStore> selector)
+		public PassiveModifierFunction(PassiveProcessModifier<TDomain, TData, TDataStore> selector)
 		{
 			_selector = selector;
 		}
@@ -18,7 +18,7 @@ namespace RpgGenerator.Sandbox.Sample.PassiveAct2.Library.PassiveModifierFunctio
 		public TSource Modify<TSource>(TSource source, IPassiveProperty<TDomain> self)
 		{
 			if (_selector is PassiveProcessModifier<TDomain, TSource, TDataStore> modifier
-				&& self is StatefulPurePassiveProperty<TDomain, TDataStore> stateful)
+				&& self is PassiveProperty<TDomain, TDataStore> stateful)
 			{
 				return modifier.Invoke(source, stateful);
 			}
