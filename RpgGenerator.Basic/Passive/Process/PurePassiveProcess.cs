@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using RpgGenerator.Basic.Passive.Event;
 using RpgGenerator.Basic.Passive.Hooker;
 using RpgGenerator.Basic.Passive.Modifier;
 
@@ -6,21 +7,21 @@ namespace RpgGenerator.Basic.Passive.Process
 {
 	public abstract class PurePassiveProcess<TDomain> : PassiveProcessBase<TDomain>
 	{
-		protected sealed override IPassiveProcessFunction<TDomain>[] LoadLeadingProcesses()
+		protected sealed override IPassiveHooker<TDomain>[] LoadLeadingProcesses()
 		{
 			var aggregator = new FuncAggregator();
 			RegisterLeadingFunctions(aggregator);
 			return aggregator.Functions.ToArray();
 		}
 
-		protected sealed override IPassiveProcessFunction<TDomain>[] LoadFollowingProcesses()
+		protected sealed override IPassiveHooker<TDomain>[] LoadFollowingProcesses()
 		{
 			var aggregator = new FuncAggregator();
 			RegisterFollowingFunctions(aggregator);
 			return aggregator.Functions.ToArray();
 		}
 
-		protected sealed override IPassiveModifierFunction<TDomain>[] LoadModifiers()
+		protected sealed override IPassiveModifier<TDomain>[] LoadModifiers()
 		{
 			var aggregator = new ModifierAggregator();
 			RegisterModifiers(aggregator);
@@ -41,22 +42,22 @@ namespace RpgGenerator.Basic.Passive.Process
 
 		protected sealed class FuncAggregator
 		{
-			public List<IPassiveProcessFunction<TDomain>> Functions { get; } = new List<IPassiveProcessFunction<TDomain>>();
+			public List<IPassiveHooker<TDomain>> Functions { get; } = new List<IPassiveHooker<TDomain>>();
 
 			public void Register<TEvent>(PassiveProcessHook<TEvent, TDomain> processFunc)
 				where TEvent : IBattleEvent<TDomain>
 			{
-				Functions.Add(new PurePassiveProcessFunction<TEvent, TDomain>(processFunc));
+				Functions.Add(new PurePassiveHooker<TEvent, TDomain>(processFunc));
 			}
 		}
 
 		protected sealed class ModifierAggregator
 		{
-			public List<IPassiveModifierFunction<TDomain>> Modifiers { get; } = new List<IPassiveModifierFunction<TDomain>>();
+			public List<IPassiveModifier<TDomain>> Modifiers { get; } = new List<IPassiveModifier<TDomain>>();
 
 			public void Register<TData>(PassiveProcessModifier<TDomain, TData> modifier)
 			{
-				Modifiers.Add(new PurePassiveModifierFunction<TDomain, TData>(modifier));
+				Modifiers.Add(new PurePassiveModifier<TDomain, TData>(modifier));
 			}
 		}
 	}

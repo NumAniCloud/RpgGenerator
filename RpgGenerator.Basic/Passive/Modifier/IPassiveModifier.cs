@@ -2,7 +2,7 @@
 
 namespace RpgGenerator.Basic.Passive.Modifier
 {
-	public interface IPassiveModifierFunction<TDomain>
+	public interface IPassiveModifier<TDomain>
 	{
 		TData Modify<TData>(TData source, IPassiveProperty<TDomain> self);
 	}

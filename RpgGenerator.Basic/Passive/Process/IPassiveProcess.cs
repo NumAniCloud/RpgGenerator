@@ -6,8 +6,8 @@ namespace RpgGenerator.Basic.Passive.Process
 {
 	public interface IPassiveProcess<TDomain>
 	{
-		IEnumerable<IPassiveProcessFunction<TDomain>> LeadingProcesses { get; }
-		IEnumerable<IPassiveProcessFunction<TDomain>> FollowingProcesses { get; }
-		IEnumerable<IPassiveModifierFunction<TDomain>> Modifiers { get; }
+		IEnumerable<IPassiveHooker<TDomain>> LeadingProcesses { get; }
+		IEnumerable<IPassiveHooker<TDomain>> FollowingProcesses { get; }
+		IEnumerable<IPassiveModifier<TDomain>> Modifiers { get; }
 	}
 }

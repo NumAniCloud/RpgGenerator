@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using RpgGenerator.Basic.Passive.Event;
 
 namespace RpgGenerator.Basic.Passive.Property
 {

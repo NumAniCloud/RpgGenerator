@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using RpgGenerator.Basic.Passive.Property;
 
-namespace RpgGenerator.Basic.Passive
+namespace RpgGenerator.Basic.Passive.Event
 {
 	public interface IBattleEvent<TDomain>
 	{

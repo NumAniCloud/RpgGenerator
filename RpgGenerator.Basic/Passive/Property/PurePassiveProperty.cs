@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using RpgGenerator.Basic.Passive.Event;
 using RpgGenerator.Basic.Passive.Process;
 
 namespace RpgGenerator.Basic.Passive.Property

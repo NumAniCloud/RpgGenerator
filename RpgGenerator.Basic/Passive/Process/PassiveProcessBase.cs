@@ -6,16 +6,16 @@ namespace RpgGenerator.Basic.Passive.Process
 {
 	public abstract class PassiveProcessBase<TDomain> : IPassiveProcess<TDomain>
 	{
-		private IPassiveProcessFunction<TDomain>[]? _leadingFunctions;
-		private IPassiveProcessFunction<TDomain>[]? _followingFunctions;
-		private IPassiveModifierFunction<TDomain>[]? _modifiers;
+		private IPassiveHooker<TDomain>[]? _leadingFunctions;
+		private IPassiveHooker<TDomain>[]? _followingFunctions;
+		private IPassiveModifier<TDomain>[]? _modifiers;
 
-		public IEnumerable<IPassiveProcessFunction<TDomain>> LeadingProcesses => _leadingFunctions ??= LoadLeadingProcesses();
-		public IEnumerable<IPassiveProcessFunction<TDomain>> FollowingProcesses => _followingFunctions ??= LoadFollowingProcesses();
-		public IEnumerable<IPassiveModifierFunction<TDomain>> Modifiers => _modifiers ??= LoadModifiers();
+		public IEnumerable<IPassiveHooker<TDomain>> LeadingProcesses => _leadingFunctions ??= LoadLeadingProcesses();
+		public IEnumerable<IPassiveHooker<TDomain>> FollowingProcesses => _followingFunctions ??= LoadFollowingProcesses();
+		public IEnumerable<IPassiveModifier<TDomain>> Modifiers => _modifiers ??= LoadModifiers();
 
-		protected abstract IPassiveModifierFunction<TDomain>[] LoadModifiers();
-		protected abstract IPassiveProcessFunction<TDomain>[] LoadLeadingProcesses();
-		protected abstract IPassiveProcessFunction<TDomain>[] LoadFollowingProcesses();
+		protected abstract IPassiveModifier<TDomain>[] LoadModifiers();
+		protected abstract IPassiveHooker<TDomain>[] LoadLeadingProcesses();
+		protected abstract IPassiveHooker<TDomain>[] LoadFollowingProcesses();
 	}
 }

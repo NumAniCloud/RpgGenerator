@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using RpgGenerator.Basic.Passive.Event;
 using RpgGenerator.Basic.Passive.Property;
 
 namespace RpgGenerator.Basic.Passive.Hooker
@@ -7,13 +8,13 @@ namespace RpgGenerator.Basic.Passive.Hooker
 		PassiveProperty<TDomain, TDataStore> self,
 		TDomain domain);
 
-	public sealed class PassiveProcessFunction<TEvent, TDomain, TDataStore>
-		: IPassiveProcessFunction<TDomain>
+	public sealed class PassiveHooker<TEvent, TDomain, TDataStore>
+		: IPassiveHooker<TDomain>
 		where TEvent : IBattleEvent<TDomain>
 	{
 		private readonly PassiveProcessHook<TEvent, TDomain, TDataStore> _processHook;
 
-		public PassiveProcessFunction(PassiveProcessHook<TEvent, TDomain, TDataStore> processHook)
+		public PassiveHooker(PassiveProcessHook<TEvent, TDomain, TDataStore> processHook)
 		{
 			_processHook = processHook;
 		}

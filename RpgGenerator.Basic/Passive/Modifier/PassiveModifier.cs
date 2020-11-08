@@ -6,11 +6,11 @@ namespace RpgGenerator.Basic.Passive.Modifier
 	public delegate TData PassiveProcessModifier<TDomain, TData, TDataStore>(TData source,
 		PassiveProperty<TDomain, TDataStore> self);
 
-	public class PassiveModifierFunction<TDomain, TData, TDataStore> : IPassiveModifierFunction<TDomain>
+	public class PassiveModifier<TDomain, TData, TDataStore> : IPassiveModifier<TDomain>
 	{
 		private readonly PassiveProcessModifier<TDomain, TData, TDataStore> _selector;
 
-		public PassiveModifierFunction(PassiveProcessModifier<TDomain, TData, TDataStore> selector)
+		public PassiveModifier(PassiveProcessModifier<TDomain, TData, TDataStore> selector)
 		{
 			_selector = selector;
 		}
