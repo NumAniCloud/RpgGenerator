@@ -1,21 +1,32 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using RpgGenerator.Basic.Passive.Property;
 
 namespace RpgGenerator.Basic.Passive
 {
 	public class BattleEventHandler<TDomain>
 	{
-		private readonly IPassiveProcessHookHandler<TDomain> _passiveHook;
+		private readonly TDomain _domain;
 
-		public BattleEventHandler(IPassiveProcessHookHandler<TDomain> passiveHook)
+		public BattleEventHandler(TDomain domain)
 		{
-			_passiveHook = passiveHook;
+			_domain = domain;
 		}
 
 		public async Task HandleAsync(IBattleEvent<TDomain> @event)
 		{
-			await _passiveHook.BeforeEventAsync(@event);
+			await RunAsync(@event, p => p.RunLeadingProcessAsync(@event, _domain));
 			await @event.RunAsync(this);
-			await _passiveHook.AfterEventAsync(@event);
+			await RunAsync(@event, p => p.RunFollowingProcessAsync(@event, _domain));
+		}
+
+		private async Task RunAsync(IBattleEvent<TDomain> @event, 
+			Func<IPassiveProperty<TDomain>, Task> runner)
+		{
+			foreach (var property in @event.PassiveProcessSubject)
+			{
+				await runner.Invoke(property);
+			}
 		}
 	}
 }

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using RpgGenerator.Basic.Passive.PassiveProcess;
+using RpgGenerator.Basic.Passive.Process;
 
-namespace RpgGenerator.Basic.Passive.PassiveProperty
+namespace RpgGenerator.Basic.Passive.Property
 {
 	public class PurePassiveProperty<TDomain> : IPassiveProperty<TDomain>
 	{

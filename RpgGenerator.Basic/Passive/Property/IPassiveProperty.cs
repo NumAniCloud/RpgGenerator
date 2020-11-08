@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace RpgGenerator.Basic.Passive.PassiveProperty
+namespace RpgGenerator.Basic.Passive.Property
 {
 	public interface IPassiveProperty<TDomain>
 	{

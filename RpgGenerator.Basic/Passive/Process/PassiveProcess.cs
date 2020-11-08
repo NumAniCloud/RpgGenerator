@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using RpgGenerator.Basic.Passive.PassiveModifierFunction;
-using RpgGenerator.Basic.Passive.PassiveProcessFunction;
+using RpgGenerator.Basic.Passive.Hooker;
+using RpgGenerator.Basic.Passive.Modifier;
 
-namespace RpgGenerator.Basic.Passive.PassiveProcess
+namespace RpgGenerator.Basic.Passive.Process
 {
 	public abstract class PassiveProcess<TDomain, TDataStore> : PassiveProcessBase<TDomain>
 	{

@@ -1,6 +1,6 @@
-﻿using RpgGenerator.Basic.Passive.PassiveProperty;
+﻿using RpgGenerator.Basic.Passive.Property;
 
-namespace RpgGenerator.Basic.Passive.PassiveModifierFunction
+namespace RpgGenerator.Basic.Passive.Modifier
 {
 	
 	public delegate TData PassiveProcessModifier<TDomain, TData, TDataStore>(TData source,

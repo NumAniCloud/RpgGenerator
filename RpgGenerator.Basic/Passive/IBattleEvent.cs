@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using RpgGenerator.Basic.Passive.PassiveProperty;
+using RpgGenerator.Basic.Passive.Property;
 
 namespace RpgGenerator.Basic.Passive
 {

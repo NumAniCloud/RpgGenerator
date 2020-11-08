@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using RpgGenerator.Basic.Passive.PassiveProperty;
+using RpgGenerator.Basic.Passive.Property;
 
-namespace RpgGenerator.Basic.Passive.PassiveProcessFunction
+namespace RpgGenerator.Basic.Passive.Hooker
 {
 	public delegate Task PassiveProcessHook<in TEvent, TDomain>(TEvent @event, IPassiveProperty<TDomain> self, TDomain domain);
 
