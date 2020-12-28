@@ -8,6 +8,9 @@
 using System;
 using System.Threading.Tasks;
 using RpgGenerator.Basic;
+<#	foreach(var import in Root.GetImports()) { #>
+using <#= import #>;
+<#	} #>
 
 namespace <#= Root.DefinitionTypeName.FullNamespace #>
 {
@@ -55,7 +58,6 @@ namespace <#= Root.DefinitionTypeName.FullNamespace #>
 
 <#	}  #>
 		private async Task<PhaseResult<TResult>> HandlePhaseFlowAsync<TResult>(Func<Task<PhaseResult<TResult>>> logic)
-			where TResult : class
 		{
 			while (true)
 			{
@@ -69,7 +71,7 @@ namespace <#= Root.DefinitionTypeName.FullNamespace #>
 
 		private sealed class Backed<T> : PhaseResult<T>
 		{
-			public override T UnWrapOrDefault() => default;
+			public override T? UnWrapOrDefault() => default;
 		}
 	}
 

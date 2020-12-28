@@ -16,7 +16,7 @@ namespace RpgGenerator.Basic.Passive.Event
 		public async Task HandleAsync(IBattleEvent<TDomain> @event)
 		{
 			await RunAsync(@event, p => p.RunLeadingProcessAsync(@event, _domain));
-			await @event.RunAsync(this);
+			await @event.RunAsync(this, _domain);
 			await RunAsync(@event, p => p.RunFollowingProcessAsync(@event, _domain));
 		}
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using RpgGenerator.Generator.PhaseSystem.Syntax;
 using RpgGenerator.Generator.Utilities;
 
@@ -23,6 +24,18 @@ namespace RpgGenerator.Generator.PhaseSystem.Analyzer
 			PhaseHandler = phaseHandler;
 			PhaseLogic = phaseLogic;
 			ContextTypes = contextTypes;
+		}
+
+		public IEnumerable<string> GetImports()
+		{
+			return ContextTypes.SelectMany(x => x.GetImports())
+				.Except(new []
+				{
+					"System",
+					"System.Threading.Tasks",
+					"RpgGenerator.Basic"
+				})
+				.Distinct();
 		}
 
 		public static AnalyzerRoot FromPhaseGroup(PhaseGroupSyntax phaseGroup)

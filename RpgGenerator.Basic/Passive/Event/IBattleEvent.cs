@@ -8,6 +8,6 @@ namespace RpgGenerator.Basic.Passive.Event
 	{
 		IEnumerable<IPassiveProperty<TDomain>> PassiveProcessSubject { get; }
 
-		Task RunAsync(BattleEventHandler<TDomain> handler);
+		Task RunAsync(BattleEventHandler<TDomain> handler, TDomain domain);
 	}
 }

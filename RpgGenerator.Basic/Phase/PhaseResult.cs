@@ -1,24 +1,19 @@
 ﻿namespace RpgGenerator.Basic
 {
-	public abstract class PhaseResult<T>
+	public interface IPhaseResult<out T>
 	{
-		public abstract T UnWrapOrDefault();
 	}
 
-	public sealed class Finished<T> : PhaseResult<T>
+	public class PhaseResult
 	{
-		public T Value { get; }
-
-		public Finished(T value)
-		{
-			Value = value;
-		}
-
-		public override T UnWrapOrDefault() => Value;
+		public static IPhaseResult<T> Finish<T>(T value) => new Finished<T>(value);
+		public static IPhaseResult<T> Cancel<T>() => new Cancelled<T>();
+		internal static IPhaseResult<T> NeedsRetry<T>() => new NeedsRetry<T>();
 	}
 
-	public sealed class Cancelled<T> : PhaseResult<T>
-	{
-		public override T UnWrapOrDefault() => default;
-	}
+	internal sealed record Finished<T>(T Value) : IPhaseResult<T>;
+
+	internal sealed record Cancelled<T> : IPhaseResult<T>;
+
+	internal sealed record NeedsRetry<T> : IPhaseResult<T>;
 }

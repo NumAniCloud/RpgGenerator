@@ -29,6 +29,14 @@ namespace RpgGenerator.Generator.PhaseSystem.Analyzer
 			return contextParam.Concat(additionalParams).Join(", ");
 		}
 
+		public IEnumerable<string> GetImports()
+		{
+			foreach (var property in ContextProperties)
+			{
+				yield return property.Type.FullNamespace;
+			}
+		}
+
 		public static IEnumerable<ContextTypeAnalyzer> FromPhaseGroup(PhaseGroupSyntax phaseGroup)
 		{
 			foreach (var method in phaseGroup.Methods)
